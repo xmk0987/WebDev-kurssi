@@ -36,7 +36,7 @@ at the root of the repository.
 - start the server backend (`npm run elm-fetch`) (inside the `backend`-directory)
 - in another terminal run `npm run dev` to compile the app in dev (watch) mode
   (or run `npm run compile` to build the app in unwatch mode)
-- open [index.html](./index.html) file in a browser to view the app
+- open [index.html](./index.html) file in a browser to view the app or use `npm run frontend` to open the app in a browser in port 5500 (Or use an extension like [Live Server](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer) to run the app in browser to skip the need for manually refreshing the page after every recompile)
 
 ## Test
 
