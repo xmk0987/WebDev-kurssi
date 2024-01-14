@@ -50,7 +50,11 @@ update msg model =
                 { model | newPlayer =  newNewPlayer }
             
         AddPlayer ->
-             { model | players = model.players ++ [ model.newPlayer ], newPlayer = Player (model.newPlayer.id +1) "" False}
+            let
+                updatedModel =
+                    { model | players = model.players ++ [model.newPlayer], newPlayer = initPlayer (model.newPlayer.id + 1) }
+            in
+            updatedModel
 
         DeletePlayer id ->
             { model | players = List.filter (\player -> player.id /= id) model.players }
