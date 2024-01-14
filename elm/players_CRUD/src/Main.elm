@@ -82,8 +82,6 @@ view model =
         [ input [ type_ "text", id "input-player", value model.newPlayer.name, onInput SetName ] [] 
         , button [ type_ "submit" ] [ text "Add"] ] 
         , ol [ id "players-list" ] (List.map viewPlayer model.players)
-
-        
         ]
 
 viewPlayer : Player -> Html Msg
@@ -91,7 +89,7 @@ viewPlayer player =
     li []
         [ div [class "player-name"] [text player.name]
         , input [type_ "checkbox", class "player-status", onClick (ModifyPlayer player.id (not player.isActive))] []
-        , label [class "player-status"] [text (if player.isActive then "Active" else "Not Active")]
+        , label [class "player-status"] [text (if player.isActive then "Active" else "Not active")]
         , button [class "btn-delete", onClick (DeletePlayer player.id)] [text "Delete"]
         ]
 
