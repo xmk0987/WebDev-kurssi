@@ -91,9 +91,8 @@ viewPlayer player =
     li []
         [ div [class "player-name"] [text player.name]
         , input [type_ "checkbox", class "player-status", onClick (ModifyPlayer player.id (not player.isActive))] []
-        , label [class "player-status"] [text "Active"]
+        , label [class "player-status"] [text (if player.isActive then "Active" else "Not Active")]
         , button [class "btn-delete", onClick (DeletePlayer player.id)] [text "Delete"]
-        
         ]
 
 main : Program () Model Msg

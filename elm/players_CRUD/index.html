@@ -5406,7 +5406,8 @@ var $author$project$Main$viewPlayer = function (player) {
 					]),
 				_List_fromArray(
 					[
-						$elm$html$Html$text('Active')
+						$elm$html$Html$text(
+						player.isActive ? 'Active' : 'Not Active')
 					])),
 				A2(
 				$elm$html$Html$button,
