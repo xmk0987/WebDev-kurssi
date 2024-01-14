@@ -34,7 +34,7 @@ type Msg
 init : Model
 init =
     { players = []
-    , newPlayer = initPlayer 0
+    , newPlayer = initPlayer 1
     }
 
 
@@ -52,7 +52,7 @@ update msg model =
         AddPlayer ->
             let
                 updatedModel =
-                    { model | players = model.players ++ [model.newPlayer], newPlayer = initPlayer (model.newPlayer.id + 1) }
+                    { model | players = model.players ++ [model.newPlayer], newPlayer = Player (model.newPlayer.id + 1) "" False }
             in
             Debug.log "Updated Model" updatedModel
 
