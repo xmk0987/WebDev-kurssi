@@ -46,8 +46,11 @@ playersDecoder =
 
 
 fetchPlayers : String -> Cmd Msg
-fetchPlayers url = Cmd.none
-
+fetchPlayers url =
+    Http.get
+        { url = url
+        , expect = Http.expectJson FetchPlayers playersDecoder
+        }
 
 
 listLast : List a -> Maybe a
@@ -74,25 +77,103 @@ init _ =
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
-        SetName word ->
-            ( model, Cmd.none )
-
+        SetName name ->
+            let 
+                oldPlayer  = model.newPlayer
+                newNewPlayer = 
+                    { oldPlayer | name = name }
+            in 
+                let
+                    updatedModel = { model | newPlayer =  newNewPlayer }
+                in
+                (Debug.log ("Name Changed: " ++ name) updatedModel, Cmd.none)
+            
         AddPlayer ->
-            ( model, Cmd.none )
+            let
+                newId =
+                    case List.maximum <| List.map .id model.players of
+                        Just maxId ->
+                            maxId + 1
+
+                        Nothing ->
+                            1
+
+                updatedModel =
+                    { model | 
+                        players = model.players ++ [Player newId model.newPlayer.name False]
+                        , newPlayer = initPlayer (newId + 1)
+                    }
+            in
+            (Debug.log "Players: " updatedModel, Cmd.none)
 
         DeletePlayer id ->
-            ( model, Cmd.none )
+            ({ model | players = List.filter (\player -> player.id /= id) model.players }, Cmd.none)
 
         ModifyPlayer id status ->
-            ( model, Cmd.none )
+            let
+                updateStatus player = 
+                    if player.id == id then
+                        let
+                            updatedPlayer = { player | isActive = status }
+                        in
+                        updatedPlayer
+                    else 
+                        player
+
+                updatedPlayers = 
+                    List.map updateStatus model.players
+            in
+            ({model | players = updatedPlayers}, Cmd.none)
+
 
         FetchPlayers data ->
-            ( model, Cmd.none )
+            case data of
+                Ok players ->
+                     let
+                        newId =
+                            case List.maximum <| List.map .id players of
+                                Just maxId ->
+                                    maxId + 1
+
+                                Nothing ->
+                                    1
+
+                        updatedModel =
+                            { model | reqStatus = "", players = players, newPlayer = initPlayer newId }
+                    in
+                    Debug.log "fetch players" (updatedModel, Cmd.none)
+
+                Err _ ->
+                    let
+                        updatedModel =
+                            { model | reqStatus = "An error has occurred!!!"}
+                    in
+                    (updatedModel, Cmd.none)
+
 
 
 view : Model -> Html Msg
 view model =
-    h1 [] [ text "Elm Exercise: Players Fetch" ]
+    div []
+        [ h1 [] [ text "Elm test Exercise: Players CRUD" ]
+        , Html.form [ id "submit-player", onSubmit AddPlayer ]
+            [ input [ type_ "text", id "input-player", value model.newPlayer.name, onInput SetName ] [] 
+            , button [ type_ "submit", id "btn-add"] [ text "Add"] ] 
+        , ol [ id "players-list" ] (List.map viewPlayer model.players)
+        , div [id "request-status"] [text model.reqStatus]
+        ]
+
+viewPlayer : Player -> Html Msg
+viewPlayer player = 
+    li [id ("player-" ++ String.fromInt (player.id))]
+        [ div [class "player-name"] [text player.name]
+        , label [] 
+            [ input [type_ "checkbox", class "player-status", onCheck (\isChecked -> ModifyPlayer player.id isChecked), checked player.isActive] []
+            , span [class "checkmark"] [ ]
+            , text (if player.isActive then "Active" else "Not active")
+            ]
+        , button [class "btn-delete", onClick (DeletePlayer player.id)] [text "Delete"]
+    ]
 
 
 main : Program () Model Msg
