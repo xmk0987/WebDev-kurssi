@@ -5216,6 +5216,7 @@ var $elm$core$List$filter = F2(
 			_List_Nil,
 			list);
 	});
+var $elm$core$Debug$log = _Debug_log;
 var $elm$core$Basics$neq = _Utils_notEqual;
 var $author$project$Main$update = F2(
 	function (msg, model) {
@@ -5239,7 +5240,7 @@ var $author$project$Main$update = F2(
 							_List_fromArray(
 								[model.newPlayer]))
 					});
-				return updatedModel;
+				return A2($elm$core$Debug$log, 'Updated Model', updatedModel);
 			case 'DeletePlayer':
 				var id = msg.a;
 				return _Utils_update(
@@ -5355,7 +5356,6 @@ var $author$project$Main$ModifyPlayer = F2(
 var $elm$html$Html$Attributes$class = $elm$html$Html$Attributes$stringProperty('className');
 var $elm$html$Html$label = _VirtualDom_node('label');
 var $elm$html$Html$li = _VirtualDom_node('li');
-var $elm$core$Basics$not = _Basics_not;
 var $elm$virtual_dom$VirtualDom$Normal = function (a) {
 	return {$: 'Normal', a: a};
 };
@@ -5366,16 +5366,33 @@ var $elm$html$Html$Events$on = F2(
 			event,
 			$elm$virtual_dom$VirtualDom$Normal(decoder));
 	});
+var $elm$json$Json$Decode$bool = _Json_decodeBool;
+var $elm$html$Html$Events$targetChecked = A2(
+	$elm$json$Json$Decode$at,
+	_List_fromArray(
+		['target', 'checked']),
+	$elm$json$Json$Decode$bool);
+var $elm$html$Html$Events$onCheck = function (tagger) {
+	return A2(
+		$elm$html$Html$Events$on,
+		'change',
+		A2($elm$json$Json$Decode$map, tagger, $elm$html$Html$Events$targetChecked));
+};
 var $elm$html$Html$Events$onClick = function (msg) {
 	return A2(
 		$elm$html$Html$Events$on,
 		'click',
 		$elm$json$Json$Decode$succeed(msg));
 };
+var $elm$html$Html$span = _VirtualDom_node('span');
 var $author$project$Main$viewPlayer = function (player) {
 	return A2(
 		$elm$html$Html$li,
-		_List_Nil,
+		_List_fromArray(
+			[
+				$elm$html$Html$Attributes$id(
+				'player-' + $elm$core$String$fromInt(player.id))
+			]),
 		_List_fromArray(
 			[
 				A2(
@@ -5394,8 +5411,17 @@ var $author$project$Main$viewPlayer = function (player) {
 					[
 						$elm$html$Html$Attributes$type_('checkbox'),
 						$elm$html$Html$Attributes$class('player-status'),
-						$elm$html$Html$Events$onClick(
-						A2($author$project$Main$ModifyPlayer, player.id, !player.isActive))
+						$elm$html$Html$Events$onCheck(
+						function (isChecked) {
+							return A2($author$project$Main$ModifyPlayer, player.id, isChecked);
+						})
+					]),
+				_List_Nil),
+				A2(
+				$elm$html$Html$span,
+				_List_fromArray(
+					[
+						$elm$html$Html$Attributes$class('checkmark')
 					]),
 				_List_Nil),
 				A2(

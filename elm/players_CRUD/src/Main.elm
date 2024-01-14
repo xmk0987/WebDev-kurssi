@@ -1,7 +1,7 @@
 module Main exposing (..)
 
 import Browser
-import Html exposing (Html, button, div, form, input, h1, label, li, ol, text)
+import Html exposing (Html, button,span, div, form, input, h1, label, li, ol, text)
 import Html.Attributes exposing (class, type_, value, id)
 import Html.Events exposing (onCheck, onClick, onInput, onSubmit, preventDefaultOn)
 
@@ -54,7 +54,7 @@ update msg model =
                 updatedModel =
                     { model | players = model.players ++ [model.newPlayer], newPlayer = initPlayer (model.newPlayer.id + 1) }
             in
-            updatedModel
+            Debug.log "Updated Model" updatedModel
 
         DeletePlayer id ->
             { model | players = List.filter (\player -> player.id /= id) model.players }
@@ -86,9 +86,10 @@ view model =
 
 viewPlayer : Player -> Html Msg
 viewPlayer player = 
-    li []
+    li [id ("player-" ++ String.fromInt player.id)]
         [ div [class "player-name"] [text player.name]
-        , input [type_ "checkbox", class "player-status", onClick (ModifyPlayer player.id (not player.isActive))] []
+        , input [type_ "checkbox", class "player-status", onCheck (\isChecked -> ModifyPlayer player.id isChecked)] []
+        , span [class "checkmark"] []
         , label [class "player-status"] [text (if player.isActive then "Active" else "Not active")]
         , button [class "btn-delete", onClick (DeletePlayer player.id)] [text "Delete"]
         ]
