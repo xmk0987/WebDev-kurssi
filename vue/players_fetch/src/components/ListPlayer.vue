@@ -34,3 +34,9 @@ export default {
   props: ['player']
 }
 </script>
+
+<style>
+  a:hover {
+    cursor: pointer;
+  }
+</style>
