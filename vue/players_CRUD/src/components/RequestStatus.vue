@@ -6,7 +6,7 @@
  <template> 
   <h2>Request Status</h2>
   <div id="request-status">
-    <p>{{ reqStatus }}</p>
+    {{ reqStatus }}
   </div>
 </template>
 
