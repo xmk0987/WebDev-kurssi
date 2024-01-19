@@ -45,7 +45,7 @@ export default {
   data () {
     return {
       players: [],
-      status: REQ_STATUS.loading,
+      status: null,
       activePlayer: null
     }
   },

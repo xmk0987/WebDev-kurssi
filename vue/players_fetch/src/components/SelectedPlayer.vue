@@ -16,27 +16,30 @@
   Use template logic to check if the player prop is null or not. If it is null, don't render the component.
  -->
 
+
  <template v-if="player">
-    <div v-if="player" id="selected-player">
-      <h1>Selected Player</h1>
-      <p id="player-name" >
-        {{ player.name }}
+  <div>
+    <h1>Selected Player</h1>
+  </div>
+  <div v-if="player" id="selected-player">
+    <p id="player-name" >
+      {{ player.name }}
+    </p>
+    <div id="player-status">
+      <p  v-if="player.isActive">
+        active
       </p>
-      <div id="player-status">
-        <p  v-if="player.isActive">
-          active
-        </p>
-        <p v-else>
-          inactive
-        </p>
-      </div>
+      <p v-else>
+        inactive
+      </p>
     </div>
- </template>
+  </div>
+</template>
 
 
 
 <script>
 export default {
-  props: ['player']
+props: ['player']
 }
 </script>

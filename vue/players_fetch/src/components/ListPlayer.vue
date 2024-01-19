@@ -24,7 +24,7 @@
  <template>
   <div>
     <li :id="`player-${player.id}`">
-      <a @click="this.$emit('player-clicked', this.player.id);">{{ player.name }}</a>
+      <a @click="this.$emit('player-clicked', this.player.id);" tabindex="0">{{ player.name }}</a>
     </li>
   </div>
 </template>
