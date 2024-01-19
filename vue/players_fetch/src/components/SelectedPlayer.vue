@@ -17,21 +17,15 @@
  -->
 
 
- <template v-if="player">
-  <div>
+ <template>
+  <div v-if="player">
     <h1>Selected Player</h1>
-  </div>
-  <div v-if="player" id="selected-player">
-    <p id="player-name" >
-      {{ player.name }}
-    </p>
-    <div id="player-status">
-      <p  v-if="player.isActive">
-        active
-      </p>
-      <p v-else>
-        inactive
-      </p>
+    <div id="selected-player">
+      <p id="player-name">{{ player.name }}</p>
+      <div id="player-status">
+        <p v-if="player.isActive">active</p>
+        <p v-else>inactive</p>
+      </div>
     </div>
   </div>
 </template>
@@ -39,7 +33,7 @@
 
 
 <script>
-export default {
-props: ['player']
-}
+  export default {
+    props: ['player']
+  }
 </script>

@@ -12,16 +12,14 @@
  -->
 
  <template> 
-  <div>
-    <h1>Request Status</h1>
-    <p id="request-status">{{ status }}</p>
+  <h1>Request Status</h1>
+  <div id="request-status">
+    <p>{{ reqStatus }}</p>
   </div>
 </template>
 
 <script>
 export default {
-  props: {
-    status: String,
-  },
+  props: ["reqStatus"]
 };
 </script>

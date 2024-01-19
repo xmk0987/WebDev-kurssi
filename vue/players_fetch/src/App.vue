@@ -22,14 +22,13 @@
 
  <template>
   <div id="app">
-    <RequestStatus :status="status"/>
-    <ListPlayers :players="players" :fetchPlayer="fetchPlayer"/>
+    <RequestStatus :reqStatus="reqStatus"/>
+    <ListPlayers :players="players" :getPlayer="fetchPlayer"/>
     <SelectedPlayer :player="activePlayer"/>
   </div>
 </template>
 
 <script>
-import { defineProps, ref, onMounted } from 'vue';
 import RequestStatus from './components/RequestStatus.vue';
 import ListPlayers from './components/ListPlayers.vue';
 import SelectedPlayer from './components/SelectedPlayer.vue';
@@ -45,7 +44,7 @@ export default {
   data () {
     return {
       players: [],
-      status: null,
+      reqStatus: null,
       activePlayer: null
     }
   },
@@ -61,16 +60,16 @@ export default {
   methods: {
     async fetchAllPlayers () {
       try {
-        this.status = REQ_STATUS.loading
+        this.reqStatus = REQ_STATUS.loading
 
         const response = await fetch('http://localhost:3001/api/players');
         if (!response.ok) {
-          this.status = REQ_STATUS.error;
+          this.reqStatus= REQ_STATUS.error;
           throw new Error("Couldn't fetch data.")
         }
-        this.status = REQ_STATUS.success;
         const data = await response.json();
         this.players = data;
+        this.reqStatus = REQ_STATUS.success;
 
       } catch (err) {
         console.error(err);
@@ -78,18 +77,19 @@ export default {
     },
     async fetchPlayer (id) {
       try {
-        this.status = REQ_STATUS.loading
+        this.reqStatus = REQ_STATUS.loading
 
         const response = await fetch(`http://localhost:3001/api/players/${id}`);
         if (!response.ok) {
-          this.status = REQ_STATUS.error;
+          this.reqStatus = REQ_STATUS.error;
           throw new Error("Couldn't fetch player.")
         }
-        this.status = REQ_STATUS.success;
         const data = await response.json();
 
         console.log(data);
         this.activePlayer = data;
+        this.reqStatus = REQ_STATUS.success;
+
 
       } catch (err) {
         console.error(err);

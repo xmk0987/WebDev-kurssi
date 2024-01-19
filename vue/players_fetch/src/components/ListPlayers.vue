@@ -26,7 +26,7 @@
       v-for="player in players"
       :key="player.id"
       :player="player"
-      @player-clicked="fetchPlayer"
+      @player-clicked="getPlayer(player.id)"
       />
     </ul> 
   </div> 
@@ -36,7 +36,7 @@
 import ListPlayer from './ListPlayer.vue'
 
 export default {
-  props: ['players', 'fetchPlayer'],
+  props: ['players', 'getPlayer'],
   components: {
     ListPlayer
   }
