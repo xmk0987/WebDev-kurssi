@@ -10,3 +10,18 @@
   1. Create an element with an id attribute set to "request-status" and use it to display the status message. The status message should be passed as template content to the component. 
 
  -->
+
+ <template> 
+  <div>
+    <h1>Request Status</h1>
+    <p id="request-status">{{ status }}</p>
+  </div>
+</template>
+
+<script>
+export default {
+  props: {
+    status: String,
+  },
+};
+</script>

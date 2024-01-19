@@ -21,3 +21,16 @@
   Although you might pass the unit tests, there may be some extra attributes or functionality that you need to add in order to get the component to work properly in the e2e tests. Please refer to the e2e tests for more details (found in cypress/e2e).
  -->
 
+ <template>
+  <div>
+    <li :id="`player-${player.id}`">
+      <a @click="this.$emit('player-clicked', this.player.id);">{{ player.name }}</a>
+    </li>
+  </div>
+</template>
+
+<script>
+export default {
+  props: ['player']
+}
+</script>

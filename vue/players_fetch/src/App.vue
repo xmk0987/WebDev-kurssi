@@ -19,12 +19,85 @@
   3. Whenever the page is refreshed, fetch players data, store and display it.
  -->
 
-<template></template>
+
+ <template>
+  <div id="app">
+    <RequestStatus :status="status"/>
+    <ListPlayers :players="players" :fetchPlayer="fetchPlayer"/>
+    <SelectedPlayer :player="activePlayer"/>
+  </div>
+</template>
 
 <script>
+import { defineProps, ref, onMounted } from 'vue';
+import RequestStatus from './components/RequestStatus.vue';
+import ListPlayers from './components/ListPlayers.vue';
+import SelectedPlayer from './components/SelectedPlayer.vue';
+
+
 const REQ_STATUS = {
   loading: "Loading...",
   success: "Finished!",
   error: "An error has occurred!!!",
+};
+
+export default {
+  data () {
+    return {
+      players: [],
+      status: REQ_STATUS.loading,
+      activePlayer: null
+    }
+  },
+  components: {
+    RequestStatus,
+    ListPlayers,
+    SelectedPlayer
+  },
+  created(){
+    this.fetchAllPlayers();
+    
+  },
+  methods: {
+    async fetchAllPlayers () {
+      try {
+        this.status = REQ_STATUS.loading
+
+        const response = await fetch('http://localhost:3001/api/players');
+        if (!response.ok) {
+          this.status = REQ_STATUS.error;
+          throw new Error("Couldn't fetch data.")
+        }
+        this.status = REQ_STATUS.success;
+        const data = await response.json();
+        this.players = data;
+
+      } catch (err) {
+        console.error(err);
+      }
+    },
+    async fetchPlayer (id) {
+      try {
+        this.status = REQ_STATUS.loading
+
+        const response = await fetch(`http://localhost:3001/api/players/${id}`);
+        if (!response.ok) {
+          this.status = REQ_STATUS.error;
+          throw new Error("Couldn't fetch player.")
+        }
+        this.status = REQ_STATUS.success;
+        const data = await response.json();
+
+        console.log(data);
+        this.activePlayer = data;
+
+      } catch (err) {
+        console.error(err);
+      }
+    }
+  },
+
+  
+
 };
 </script>

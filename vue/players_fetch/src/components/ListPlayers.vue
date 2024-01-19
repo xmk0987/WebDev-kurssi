@@ -17,3 +17,29 @@
   2. Listen for "player-clicked" events from the ListPlayer component, and call the getPlayer prop function with the id of the clicked player as an argument.
 
 -->
+
+<template>
+  <div>
+    <h1>List of players</h1>
+    <ul id="players-list">
+      <ListPlayer 
+      v-for="player in players"
+      :key="player.id"
+      :player="player"
+      @player-clicked="fetchPlayer"
+      />
+    </ul> 
+  </div> 
+</template>
+
+<script>
+import ListPlayer from './ListPlayer.vue'
+
+export default {
+  props: ['players', 'fetchPlayer'],
+  components: {
+    ListPlayer
+  }
+}
+
+</script>
