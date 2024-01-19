@@ -29,15 +29,15 @@
     <div id="selected-player">
       <p class="player-id">{{ player.id }}</p>
       <p id="player-name">{{ player.name }}</p>
-      <div>
+      <div id="player-status">
         <label id="checkbox-label">
           <input type="checkbox" id="checkbox" v-model="checkboxValue"/>
           <span class="checkmark"></span>
-          <p  id="player-status">{{ !this.checkboxValue ? "inactive" : "active" }}</p>
+          {{ !checkboxValue ? "inactive" : "active" }}
         </label>
       </div>
       <div>
-        <button class="btn-update" @click="handleUpdate" :disabled="isSameActiveState">UPDATE</button>
+        <button class="btn-update" @click="handleUpdate" :disabled="!isSameActiveState">UPDATE</button>
         <button class="btn-delete" @click="handleDelete">DELETE</button>
       </div>
     </div>
@@ -65,14 +65,16 @@
       },
       async handleDelete() {
         await this.$emit('delete-player', this.player.id);
-      }
+      },
+      
     },
     watch: {
       player: {
         immediate: true,
         handler(newPlayer) {
           if (newPlayer) {
-            this.checkboxValue = newPlayer.isActive;
+            this.player.isActive === !this.player.isActive;
+            this.checkboxValue === this.player.isActive;
           }
         },
       }
