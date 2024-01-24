@@ -9,7 +9,7 @@
   - User not logged in and in login: display "Go to register". 
   - User not logged in and in register: display "Go to login".
   
-  2. When user is trying to log in or register, the component should display a form with two input fields and a submit button. The form should submit the username and password to the submit function when submitted. The input fields should be required.
+  2. When user is trying to log in or register, the component should display a form with two input fields and a submit button.  The form should have an id of "auth-form". The form should submit the username and password to the submit function when submitted. The input fields should be required.
 
   - One input field for username with an id of "username", name of "auth-username" and type of "text".
   - One input field for password with an id of "password", name of "auth-password" and type of "password".
