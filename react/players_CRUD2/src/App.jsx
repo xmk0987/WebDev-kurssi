@@ -176,13 +176,16 @@ function App() {
         const credentials = window.btoa(`${username}:${password}`);
     
         const response = await fetch(url, {
+            
           headers: {
             Authorization: `Basic ${credentials}`,
           },
+          method: 'POST',
+
         });
     
         if (!response.ok) {
-            throw new Error("Couldnt update player");
+            throw new Error("Couldnt register user");
         }
 
         setUser(username);

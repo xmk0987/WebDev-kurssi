@@ -42,7 +42,7 @@ export const AuthUser = ({isLoggedIn, onLogin, onRegister, onLogout}) => {
       <form id="auth-form" onSubmit={(e) => handleSubmitForm(e)}>
         <input id="username" type="text" required placeholder="Username" onChange={(e) => setUsername(e.target.value)}/>
         <input id="password" type="password" required placeholder="Password" onChange={(e) => setPassword(e.target.value)}/>
-        <button type="submit">{isLogin ? "Login" : "Register"}</button>
+        <button className="btn-auth" type="submit">{isLogin ? "Login" : "Register"}</button>
       </form>}
     </div>
   );
