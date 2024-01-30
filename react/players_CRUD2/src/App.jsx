@@ -39,11 +39,13 @@ function App() {
             'Authorization': `Basic ${window.btoa(`${user}:${password}`)}`,
           }
       });
+      console.log(response);
       if (!response.ok) {
         throw new Error("Couldnt fetch players");
       }
       const data = await response.json();
       setLoading(false);
+      setIsLoggedIn(true);
       setPlayers(data);
     } catch (err) {
       setLoading(null);
@@ -161,7 +163,6 @@ function App() {
     setUser(username);
     setPassword(password);
     await fetchPlayers();
-    setIsLoggedIn(true);
   }
 
   const logout = () => {
@@ -178,9 +179,14 @@ function App() {
         const response = await fetch(url, {
             
           headers: {
-            Authorization: `Basic ${credentials}`,
+            'Authorization': `Basic ${credentials}`,
+            'Content-Type': 'application/json',
           },
           method: 'POST',
+          body: JSON.stringify({
+            user: username,
+            password: password
+        })
 
         });
     
