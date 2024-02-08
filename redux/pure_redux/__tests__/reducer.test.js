@@ -1,21 +1,25 @@
-import { createStore } from 'redux';
-import { players } from '../mocks/players';
-import { addPlayer, removePlayer, togglePlayerStatus } from '../store/actionCreators';
-import playersReducer from '../store/reducer';
+import { legacy_createStore } from "redux";
+import { players } from "../mocks/players";
+import {
+  addPlayer,
+  removePlayer,
+  togglePlayerStatus,
+} from "../store/actionCreators";
+import playersReducer from "../store/reducer";
 
-describe('store', () => {
-  it('should have empty array as initial state', () => {
-    const store = createStore(playersReducer);
+describe("store", () => {
+  it("should have empty array as initial state", () => {
+    const store = legacy_createStore(playersReducer);
     const initialState = store.getState();
     expect(initialState).toEqual(expect.any(Array));
     expect(initialState).toHaveLength(0);
   });
 });
 
-describe('ADD_PLAYER', () => {
-  it('should add one player with correct data and id', () => {
+describe("ADD_PLAYER", () => {
+  it("should add one player with correct data and id", () => {
     const { name, isActive } = players[0];
-    const store = createStore(playersReducer);
+    const store = legacy_createStore(playersReducer);
     store.dispatch(addPlayer({ name, isActive }));
 
     const state = store.getState();
@@ -23,17 +27,17 @@ describe('ADD_PLAYER', () => {
     expect(state).toHaveLength(1);
     expect(state[0]).toMatchObject({
       name,
-      isActive
+      isActive,
     });
-    expect(state[0]).toHaveProperty('id');
+    expect(state[0]).toHaveProperty("id");
     expect(Number.isSafeInteger(state[0].id)).toBe(true);
     expect(state[0].id).toBeGreaterThan(0);
   });
 
-  it('should add multiple players correctly each player with unique id', () => {
-    const store = createStore(playersReducer);
+  it("should add multiple players correctly each player with unique id", () => {
+    const store = legacy_createStore(playersReducer);
 
-    players.forEach(player => {
+    players.forEach((player) => {
       const { name, isActive } = player;
       // try to add players with the same non-unique id
       store.dispatch(addPlayer({ id: 1, name, isActive }));
@@ -48,7 +52,7 @@ describe('ADD_PLAYER', () => {
     players.forEach((player, i) => {
       const { name, isActive } = player;
       expect(state[i]).toMatchObject({ name, isActive });
-      expect(state[i]).toHaveProperty('id');
+      expect(state[i]).toHaveProperty("id");
       expect(Number.isSafeInteger(state[i].id)).toBe(true);
       expect(state[i].id).toBeGreaterThan(0);
       expect(ids).not.toContain(state[i].id);
@@ -57,9 +61,9 @@ describe('ADD_PLAYER', () => {
   });
 });
 
-describe('TOGGLE_PLAYER_STATUS', () => {
-  it('should not change state when state is empty', () => {
-    const store = createStore(playersReducer);
+describe("TOGGLE_PLAYER_STATUS", () => {
+  it("should not change state when state is empty", () => {
+    const store = legacy_createStore(playersReducer);
     const initialState = store.getState();
 
     store.dispatch(togglePlayerStatus(1));
@@ -71,8 +75,8 @@ describe('TOGGLE_PLAYER_STATUS', () => {
     expect(state).toHaveLength(0);
   });
 
-  it('should not change state when player with given id does not exist', () => {
-    const store = createStore(playersReducer);
+  it("should not change state when player with given id does not exist", () => {
+    const store = legacy_createStore(playersReducer);
     const { name, isActive } = players[0];
 
     store.dispatch(addPlayer({ name, isActive }));
@@ -82,9 +86,9 @@ describe('TOGGLE_PLAYER_STATUS', () => {
     expect(initialState).toHaveLength(1);
     expect(initialState[0]).toMatchObject({
       name,
-      isActive
+      isActive,
     });
-    expect(initialState[0]).toHaveProperty('id');
+    expect(initialState[0]).toHaveProperty("id");
 
     const id = initialState[0].id;
     store.dispatch(togglePlayerStatus(id + 1));
@@ -95,13 +99,13 @@ describe('TOGGLE_PLAYER_STATUS', () => {
     expect(state[0]).toMatchObject({
       id,
       name,
-      isActive
+      isActive,
     });
   });
 
-  it('should correctly toggle active status from false to true', () => {
+  it("should correctly toggle active status from false to true", () => {
     const { name } = players[0];
-    const store = createStore(playersReducer);
+    const store = legacy_createStore(playersReducer);
     store.dispatch(addPlayer({ name, isActive: false }));
 
     let state = store.getState();
@@ -109,9 +113,9 @@ describe('TOGGLE_PLAYER_STATUS', () => {
     expect(state).toHaveLength(1);
     expect(state[0]).toMatchObject({
       name,
-      isActive: false
+      isActive: false,
     });
-    expect(state[0]).toHaveProperty('id');
+    expect(state[0]).toHaveProperty("id");
 
     const id = state[0].id;
     store.dispatch(togglePlayerStatus(id));
@@ -121,13 +125,13 @@ describe('TOGGLE_PLAYER_STATUS', () => {
     expect(state[0]).toMatchObject({
       id,
       name,
-      isActive: true
+      isActive: true,
     });
   });
 
-  it('should correctly toggle active status from true to false', () => {
+  it("should correctly toggle active status from true to false", () => {
     const { name } = players[0];
-    const store = createStore(playersReducer);
+    const store = legacy_createStore(playersReducer);
     store.dispatch(addPlayer({ name, isActive: true }));
 
     let state = store.getState();
@@ -135,9 +139,9 @@ describe('TOGGLE_PLAYER_STATUS', () => {
     expect(state).toHaveLength(1);
     expect(state[0]).toMatchObject({
       name,
-      isActive: true
+      isActive: true,
     });
-    expect(state[0]).toHaveProperty('id');
+    expect(state[0]).toHaveProperty("id");
 
     const id = state[0].id;
     store.dispatch(togglePlayerStatus(id));
@@ -147,14 +151,14 @@ describe('TOGGLE_PLAYER_STATUS', () => {
     expect(state[0]).toMatchObject({
       id,
       name,
-      isActive: false
+      isActive: false,
     });
   });
 
-  it('should correctly toggle active status when store contains multiple players', () => {
-    const store = createStore(playersReducer);
+  it("should correctly toggle active status when store contains multiple players", () => {
+    const store = legacy_createStore(playersReducer);
 
-    players.forEach(player => {
+    players.forEach((player) => {
       const { name, isActive } = player;
       store.dispatch(addPlayer({ name, isActive }));
     });
@@ -171,15 +175,15 @@ describe('TOGGLE_PLAYER_STATUS', () => {
       expect(newState[i]).toMatchObject({
         id,
         name,
-        isActive: !isActive
+        isActive: !isActive,
       });
     });
   });
 });
 
-describe('REMOVE_PLAYER', () => {
-  it('should not change state when state is empty', () => {
-    const store = createStore(playersReducer);
+describe("REMOVE_PLAYER", () => {
+  it("should not change state when state is empty", () => {
+    const store = legacy_createStore(playersReducer);
     const initialState = store.getState();
 
     store.dispatch(removePlayer(1));
@@ -191,8 +195,8 @@ describe('REMOVE_PLAYER', () => {
     expect(state).toHaveLength(0);
   });
 
-  it('should not change state when player with given id does not exist', () => {
-    const store = createStore(playersReducer);
+  it("should not change state when player with given id does not exist", () => {
+    const store = legacy_createStore(playersReducer);
     const { name, isActive } = players[0];
 
     store.dispatch(addPlayer({ name, isActive }));
@@ -202,9 +206,9 @@ describe('REMOVE_PLAYER', () => {
     expect(initialState).toHaveLength(1);
     expect(initialState[0]).toMatchObject({
       name,
-      isActive
+      isActive,
     });
-    expect(initialState[0]).toHaveProperty('id');
+    expect(initialState[0]).toHaveProperty("id");
 
     const id = initialState[0].id;
     store.dispatch(removePlayer(id + 1));
@@ -215,12 +219,12 @@ describe('REMOVE_PLAYER', () => {
     expect(state[0]).toMatchObject({
       id,
       name,
-      isActive
+      isActive,
     });
   });
 
-  it('should delete only player correctly', () => {
-    const store = createStore(playersReducer);
+  it("should delete only player correctly", () => {
+    const store = legacy_createStore(playersReducer);
     const { name, isActive } = players[0];
 
     store.dispatch(addPlayer({ name, isActive }));
@@ -230,9 +234,9 @@ describe('REMOVE_PLAYER', () => {
     expect(initialState).toHaveLength(1);
     expect(initialState[0]).toMatchObject({
       name,
-      isActive
+      isActive,
     });
-    expect(initialState[0]).toHaveProperty('id');
+    expect(initialState[0]).toHaveProperty("id");
 
     const id = initialState[0].id;
     store.dispatch(removePlayer(id));
@@ -242,10 +246,10 @@ describe('REMOVE_PLAYER', () => {
     expect(state).toHaveLength(0);
   });
 
-  it('should delete player correctly when store has multiple players', () => {
-    const store = createStore(playersReducer);
+  it("should delete player correctly when store has multiple players", () => {
+    const store = legacy_createStore(playersReducer);
 
-    players.forEach(player => {
+    players.forEach((player) => {
       const { name, isActive } = player;
       store.dispatch(addPlayer({ name, isActive }));
     });
@@ -265,7 +269,7 @@ describe('REMOVE_PLAYER', () => {
       expect(newState).not.toContainEqual({
         id,
         name,
-        isActive
+        isActive,
       });
     });
   });
