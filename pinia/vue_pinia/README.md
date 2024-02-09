@@ -17,8 +17,9 @@ at the root of the repository.
 2. Starting the backend server
 
    - change working directory to `backend`
-   - inside `backend` directory run `npm run react-fetch`
+   - inside `backend` directory run `npm run vue-crud`
    - server listens on http://localhost:3001/
+   - API documentation is available at http://localhost:3001/
 
 3. Stopping the backend server
    - press <`Ctrl-C`> while the server is running
@@ -30,21 +31,16 @@ at the root of the repository.
 
 ## Setup the exercise
 
-- change working directory to `redux/react_redux`
+- change working directory to `pinia/vue_pinia`
 - run `npm install` to install all dependencies
 
 ## Run the exercise
 
-- run `npm run frontend` to run the frontend in port 5500 and run it in watch mode.
+- run `npm run frontend` to run the frontend in port 5500 and run it in watch mode. You can change the port in the package.json file. (or open [index.html](./index.html) file in a browser to view the app)
 
 ## Test
 
-### Unit tests
-
-- run `npm run test:unit` to run the unit tests in watch mode.
-- run `npm run test:unit -- test-file.js` to run the unit tests for a specific file in watch mode. Example: to run tests for RequestStatus.jsx: `npm run test:unit -- RequestStatus.test.jsx`
-
-### E2E tests
-
-- run `npm run test:e2e` to run the e2e tests in the terminal.
-- If you want to run the e2e tests in the browser, run `npm run test:e2e:dev` and then open Cypress from the browser. There you can select the test file you want to run.
+- run `npm run test:unit -- --run` to run the unit tests in non-watch mode.
+- run `npm run test:unit` to run the unit tests in watch mode
+- run `npm run test:e2e:dev` to run the end to end tests in interactive watch mode.
+- run `npm run test:e2e` to run the end to end tests once in a non-interactive mode.
