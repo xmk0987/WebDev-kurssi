@@ -1,7 +1,7 @@
 /** @format */
 
 import { mount } from "@vue/test-utils";
-import { createPinia, setActivePinia } from "pinia";
+import { createPinia } from "pinia";
 import { waitFor } from "@testing-library/vue";
 import SelectedPlayer from "../SelectedPlayer.vue";
 import { describe, test, expect, beforeEach, afterEach } from "vitest";
@@ -13,13 +13,13 @@ describe("SelectedPlayer", () => {
   let store;
 
   beforeEach(() => {
-    setActivePinia(createPinia());
-    store = usePlayerStore();
+    const pinia = createPinia();
+    store = usePlayerStore(pinia);
     store.players = players;
     store.selectedPlayer = players[0];
     wrapper = mount(SelectedPlayer, {
       global: {
-        plugins: [store],
+        plugins: [pinia],
       },
     });
   });
