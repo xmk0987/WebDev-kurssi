@@ -11,8 +11,6 @@ import { SET_PLAYERS } from '../constants';
  * @returns {Array} - The players in an array.
  */
 const playersReducer = (state = [], action) => {
-    console.log("täällä")
-    console.log(state);
     switch (action.type) {
         case SET_PLAYERS:
             return action.payload;

@@ -52,8 +52,6 @@ function App() {
   const handleClick = (id) => {
     dispatch(setStatus(REQ_STATUS.loading));
     const player = players.find((a) => a.id === id);
-    console.log("tulee");
-    console.log(player);
     dispatch(setSelectedPlayer(player));
 };
 

@@ -10,10 +10,14 @@
  *
  */
 
-export const ListPlayer = ({ player, onClick }) => {
+export const ListPlayer = ({ player, selectPlayer }) => {
+  if (!player) {
+    return null;
+  }
+  
   return (
     <li id={`player-${player.id}`}>
-      <a href={`#${player.id}`} onClick={() => onClick(player.id)}>
+      <a href={`#${player.id}`} onClick={() => selectPlayer && selectPlayer(player.id)}>
         {player.name}
       </a>
     </li>

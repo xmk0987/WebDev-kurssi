@@ -18,8 +18,8 @@ export const ListPlayers = ({selectPlayer}) => {
     <div>
       <h2>List of players</h2>
       <ul id="players-list">
-        {players.map((player) => (
-          <ListPlayer key={player.id} player={player} onClick={selectPlayer}/>
+        {players && players.map((player) => (
+          <ListPlayer key={player.id} player={player} selectPlayer={selectPlayer}/>
         ))}
       </ul>
     </div>
