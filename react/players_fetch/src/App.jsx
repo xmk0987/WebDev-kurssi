@@ -76,7 +76,15 @@ function App() {
   return (
     <div>
       <h2>Request Status</h2>
-      <RequestStatus reqStatus={loading ? REQ_STATUS.loading : (loading === false ? REQ_STATUS.success : REQ_STATUS.error)} />
+      <RequestStatus
+        reqStatus={
+          loading
+            ? REQ_STATUS.loading
+            : loading === false
+            ? REQ_STATUS.success
+            : REQ_STATUS.error
+        }
+      />      
       <h2>List of players</h2>
       <ListPlayers players={players} getPlayer={getPlayer}/>
       <SelectedPlayer player={player} />

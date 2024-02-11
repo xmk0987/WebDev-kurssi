@@ -37,7 +37,30 @@ import * as actions from './actionTypes.js';
  * @returns {Array} the new state of the application
  */
 
-const playersReducer = (state = [], action) => {};
+const playersReducer = (state = [], action) => {
+    console.log(state);
+    console.log(action);
+    switch (action.type) {
+        case actions.ADD_PLAYER:
+            let ID = state.length === 0 ? 1 : state.reduce((maxId, obj) => Math.max(maxId, obj.id), -1) +1;
+            const newPlayer = {
+                id: ID,
+                name: action.payload.name,
+                isActive: action.payload.isActive
+            }
+            return [...state, newPlayer];
+        case actions.REMOVE_PLAYER:
+            return state.filter(player => player.id !== action.payload.id); 
+        case actions.TOGGLE_PLAYER_STATUS:
+            return state.map(player =>
+                player.id === action.payload.id
+                    ? { ...player, isActive: !player.isActive } 
+                    : player
+            );
+        default:
+            return state; 
+    }
+};
 
 export default playersReducer;
 

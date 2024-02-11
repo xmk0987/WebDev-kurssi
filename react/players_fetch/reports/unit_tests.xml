@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuites name="vitest tests" tests="2" failures="1" errors="0" time="893.905">
-    <testsuite name="components/__tests__/RequestStatus.test.jsx" timestamp="2024-01-30T11:10:16.392Z" hostname="Onnis-MacBook-Air.local" tests="2" failures="1" errors="0" skipped="0" time="0.014">
-        <testcase classname="components/__tests__/RequestStatus.test.jsx" name="RequestStatus component &gt; should render the component, inside which is an element with id &apos;request-status&apos;" time="0.01">
+<testsuites name="vitest tests" tests="2" failures="1" errors="0" time="1120.792">
+    <testsuite name="components/__tests__/RequestStatus.test.jsx" timestamp="2024-01-30T11:14:03.278Z" hostname="Onnis-MacBook-Air.local" tests="2" failures="1" errors="0" skipped="0" time="0.013">
+        <testcase classname="components/__tests__/RequestStatus.test.jsx" name="RequestStatus component &gt; should render the component, inside which is an element with id &apos;request-status&apos;" time="0.009">
         </testcase>
         <testcase classname="components/__tests__/RequestStatus.test.jsx" name="RequestStatus component &gt; should render the component with the correct status" time="0.004">
             <failure message="expected false to be truthy" type="AssertionError">
