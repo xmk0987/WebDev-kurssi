@@ -11,11 +11,19 @@
 
 */
 
+import { useSelector } from 'react-redux';
+
 export const SelectedPlayer = () => {
-	return (
-		<div>
-			<h3>Selected Player</h3>
-			TODO: SelectedPlayer
-		</div>
-	);
+  const player = useSelector(state => state.selectedPlayer);
+
+  return (
+    <>
+    {player && <div id="selected-player">
+      <h2>Selected Player</h2>
+      <p id="player-name">{player.name}</p>
+      <p id="player-status">{player.isActive ? "active" : "inactive"}</p>
+    </div>
+    }
+    </>
+  );
 };

@@ -1,5 +1,8 @@
 /** @format THUNK*/
-
+import { removePlayer } from "../playersActions";
+import { setStatus } from "../statusActions";
+import { REQ_STATUS } from "../../../../cypress/e2e/constants";import { clearSelectedPlayer } from "../selectedPlayerActions";
+}
 /**
  * @description thunk for deleting the selected player.
  * Upon starting, Dispatches
@@ -15,7 +18,27 @@
  *
  * Hint: You have to get the required details of the selected player from the store.
  */
-export const deleteSelectedPlayer = () => {};
+export const deleteSelectedPlayer = (selectedPlayerId) => {
+    return async (dispatch) => {
+        dispatch(setStatus(REQ_STATUS.loading));
+        try {
+            const response = await fetch(`http://localhost:3001/api/players/${selectedPlayerId}`, {
+                method: "DELETE"
+            });
+            console.log(response);
+            if (response.ok) {
+                dispatch(setStatus(REQ_STATUS.success));
+                dispatch(removePlayer(selectedPlayerId));
+                dispatch(clearSelectedPlayer());
+            } else {
+                throw new Error(`Request rejected with status ${response.status}`);
+            }
+        } catch (error) {
+            console.error(error);
+            dispatch(setStatus(REQ_STATUS.error));
+        }
+    };
+};
 
 /**
  * @description thunk for updating the selected player.

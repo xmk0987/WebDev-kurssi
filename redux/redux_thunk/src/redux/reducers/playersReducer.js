@@ -21,9 +21,22 @@ const defaultState = [];
  * @returns {Array} - The players in an array.
  */
 const playersReducer = (state = defaultState, action) => {
-	switch (null) {
+	switch (action.type) {
+		case ADD_PLAYER:
+			return [...state, action.payload];
+		case REMOVE_PLAYER:
+			return state.filter(player => player.id !== action.payload.id); 
+		case UPDATE_PLAYER:
+			return state.map(player =>
+				player.id === action.payload.id
+					? { ...player, isActive: !player.isActive } 
+					: player
+			);
+		case SET_PLAYERS:
+			return [...state, ...action.payload];
 		default:
-			return state;
+			return state; 
+	
 	}
 };
 

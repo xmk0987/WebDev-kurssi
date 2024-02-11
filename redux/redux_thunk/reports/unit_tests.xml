@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites name="vitest tests" tests="2" failures="1" errors="0" time="1266.349">
+    <testsuite name="components/__tests__/AddPlayer.test.jsx" timestamp="2024-02-11T19:20:32.883Z" hostname="Onnis-MacBook-Air.local" tests="2" failures="1" errors="0" skipped="0" time="1.044">
+        <testcase classname="components/__tests__/AddPlayer.test.jsx" name="AddPlayer &gt; postPlayer is dispatched when form is submitted with played info" time="1.024">
+            <failure message="expected &quot;spy&quot; to be called 1 times, but got 0 times
+
+Ignored nodes: comments, script, style
+[36m&lt;html&gt;[39m
+  [36m&lt;head /&gt;[39m
+  [36m&lt;body&gt;[39m
+    [36m&lt;div&gt;[39m
+      [36m&lt;div&gt;[39m
+        [36m&lt;form[39m
+          [33mid[39m=[32m&quot;submit-player&quot;[39m
+        [36m&gt;[39m
+          [36m&lt;input[39m
+            [33mid[39m=[32m&quot;input-player&quot;[39m
+            [33mplaceholder[39m=[32m&quot;Enter name&quot;[39m
+            [33mtype[39m=[32m&quot;text&quot;[39m
+            [33mvalue[39m=[32m&quot;&quot;[39m
+          [36m/&gt;[39m
+          [36m&lt;button[39m
+            [33mclass[39m=[32m&quot;btn-add&quot;[39m
+            [33mtype[39m=[32m&quot;submit&quot;[39m
+          [36m&gt;[39m
+            [0mAdd[0m
+          [36m&lt;/button&gt;[39m
+        [36m&lt;/form&gt;[39m
+      [36m&lt;/div&gt;[39m
+    [36m&lt;/div&gt;[39m
+  [36m&lt;/body&gt;[39m
+[36m&lt;/html&gt;[39m" type="AssertionError">
+AssertionError: expected &quot;spy&quot; to be called 1 times, but got 0 times
+
+Ignored nodes: comments, script, style
+[36m&lt;html&gt;[39m
+  [36m&lt;head /&gt;[39m
+  [36m&lt;body&gt;[39m
+    [36m&lt;div&gt;[39m
+      [36m&lt;div&gt;[39m
+        [36m&lt;form[39m
+          [33mid[39m=[32m&quot;submit-player&quot;[39m
+        [36m&gt;[39m
+          [36m&lt;input[39m
+            [33mid[39m=[32m&quot;input-player&quot;[39m
+            [33mplaceholder[39m=[32m&quot;Enter name&quot;[39m
+            [33mtype[39m=[32m&quot;text&quot;[39m
+            [33mvalue[39m=[32m&quot;&quot;[39m
+          [36m/&gt;[39m
+          [36m&lt;button[39m
+            [33mclass[39m=[32m&quot;btn-add&quot;[39m
+            [33mtype[39m=[32m&quot;submit&quot;[39m
+          [36m&gt;[39m
+            [0mAdd[0m
+          [36m&lt;/button&gt;[39m
+        [36m&lt;/form&gt;[39m
+      [36m&lt;/div&gt;[39m
+    [36m&lt;/div&gt;[39m
+  [36m&lt;/body&gt;[39m
+[36m&lt;/html&gt;[39m
+ ❯ components/__tests__/AddPlayer.test.jsx:38:48
+ ❯ runWithExpensiveErrorDiagnosticsDisabled ../node_modules/@testing-library/dom/dist/config.js:47:12
+ ❯ checkCallback ../node_modules/@testing-library/dom/dist/wait-for.js:124:77
+ ❯ Timeout.checkRealTimersCallback ../node_modules/@testing-library/dom/dist/wait-for.js:118:16
+            </failure>
+        </testcase>
+        <testcase classname="components/__tests__/AddPlayer.test.jsx" name="AddPlayer &gt; clears the input when the form is submitted" time="0.019">
+        </testcase>
+    </testsuite>
+</testsuites>

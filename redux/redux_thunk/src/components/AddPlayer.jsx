@@ -9,11 +9,52 @@
  * - postPlayer, found in src\redux\actionCreators\thunks\AddPlayer.jsx
  */
 
+import { postPlayer } from "../redux/actionCreators/thunks/AddPlayer";
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
+
 export const AddPlayer = () => {
-	return (
-		<div>
-			<h2>Add player</h2>
-			TODO: AddPlayer
-		</div>
-	);
+  const [name, setName] = useState("");
+  const players = useSelector((state) => state.players);
+  const dispatch = useDispatch();
+
+  const handleNameChange = (e) => {
+    setName(e.target.value);
+  };
+
+  const handleSubmitForm = (e) => {
+    e.preventDefault();
+    if (name.trim() !== "") {
+      const maxId =
+        players && players.length > 0
+          ? Math.max(...players.map((player) => player.id)) + 1
+          : 1;
+      const newPlayer = {
+        name: name,
+        id: maxId,
+        isActive: false,
+      };
+
+      dispatch(postPlayer(newPlayer));
+      setName("");
+    }
+  };
+
+  return (
+    <div>
+      <form id="submit-player" onSubmit={handleSubmitForm}>
+        <input
+          id="input-player"
+          placeholder="Enter name"
+          type="text"
+          onChange={handleNameChange}
+          value={name}
+        />
+        <button className="btn-add" type="submit">
+          Add
+        </button>
+      </form>
+    </div>
+  );
 };
