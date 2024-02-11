@@ -8,11 +8,20 @@
  * BEWARE: Only the selectPlayer function is passed as a prop from now on. The players data is fetched from the redux store.
  *
  */
-export const ListPlayers = ({ selectPlayer }) => {
+import { useSelector } from 'react-redux';
+import { ListPlayer } from './ListPlayer';
+
+export const ListPlayers = () => {
+
+  const players = useSelector(state => state.players);
+  console.log(players);
   return (
     <div>
-      <h2>List of players</h2>
-      TODO: ListPlayers
+      <ul id="players-list">
+        {players && players.map((player) => (
+          <ListPlayer key={player.id} player={player} />
+        ))}
+      </ul>
     </div>
   );
 };

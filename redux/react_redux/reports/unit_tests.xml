@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites name="vitest tests" tests="2" failures="0" errors="0" time="1387.448">
+    <testsuite name="components/__tests__/ListPlayers.test.jsx" timestamp="2024-02-11T12:57:23.090Z" hostname="Onnis-MacBook-Air.local" tests="2" failures="0" errors="0" skipped="0" time="0.085">
+        <testcase classname="components/__tests__/ListPlayers.test.jsx" name="ListPlayers &gt; renders a list with id &quot;players-list&quot;" time="0.016">
+            <system-out>
+[
+  { id: [33m1[39m, name: [32m&apos;Test Player 1&apos;[39m },
+  { id: [33m2[39m, name: [32m&apos;Test Player 2&apos;[39m },
+  { id: [33m3[39m, name: [32m&apos;Test Player 3&apos;[39m }
+]
+
+            </system-out>
+        </testcase>
+        <testcase classname="components/__tests__/ListPlayers.test.jsx" name="ListPlayers &gt; renders a ListPlayer for each player in the players prop" time="0.069">
+            <system-out>
+[
+  { id: [33m1[39m, name: [32m&apos;Test Player 1&apos;[39m },
+  { id: [33m2[39m, name: [32m&apos;Test Player 2&apos;[39m },
+  { id: [33m3[39m, name: [32m&apos;Test Player 3&apos;[39m }
+]
+
+            </system-out>
+        </testcase>
+    </testsuite>
+</testsuites>

@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 /** @format
  *
  * @description
@@ -9,6 +10,15 @@
  *
  */
 
-export const ListPlayer = ({ name, id, onClick }) => {
-  return "TODO: ListPlayer";
+export const ListPlayer = ({ player, onClick }) => {
+  return (
+    <div>
+        { player && <li id={player.id}>
+        <a tabIndex="0" role="link" onClick={() => onClick(player.id)}>
+          {player.name}
+        </a>
+      </li>}
+    </div>
+
+  );
 };
