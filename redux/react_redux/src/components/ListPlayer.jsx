@@ -12,13 +12,10 @@
 
 export const ListPlayer = ({ player, onClick }) => {
   return (
-    <div>
-        { player && <li id={player.id}>
-        <a tabIndex="0" role="link" onClick={() => onClick(player.id)}>
-          {player.name}
-        </a>
-      </li>}
-    </div>
-
+    <li id={`player-${player.id}`}>
+      <a href={`#${player.id}`} onClick={() => onClick(player.id)}>
+        {player.name}
+      </a>
+    </li>
   );
 };

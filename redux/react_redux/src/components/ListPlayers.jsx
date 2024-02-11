@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 /** @format */
 
 /** @format
@@ -11,15 +12,14 @@
 import { useSelector } from 'react-redux';
 import { ListPlayer } from './ListPlayer';
 
-export const ListPlayers = () => {
-
-  const players = useSelector(state => state.players);
-  console.log(players);
+export const ListPlayers = ({selectPlayer}) => {
+  const players = useSelector(state => state.players)
   return (
     <div>
+      <h2>List of players</h2>
       <ul id="players-list">
-        {players && players.map((player) => (
-          <ListPlayer key={player.id} player={player} />
+        {players.map((player) => (
+          <ListPlayer key={player.id} player={player} onClick={selectPlayer}/>
         ))}
       </ul>
     </div>
