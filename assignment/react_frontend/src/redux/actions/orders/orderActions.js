@@ -5,6 +5,8 @@ import { stateTypes } from "../../../tests/constants/components";
 import { resetCart } from "../cart/actionCreators";
 
 export const getOrders  = () => async (dispatch) =>  {
+    dispatch({ type: LOADING, payload: {message:"Orders loading", stateType: stateTypes.order}});
+
     try {
         const response = await axios.get(apiURL + '/orders', 
         
@@ -27,7 +29,7 @@ export const getOrders  = () => async (dispatch) =>  {
 }
 
 export const postOrders = (items) => async (dispatch) => {
-    console.log(items);
+    dispatch({ type: LOADING, payload: {message:"Orders updating", stateType: stateTypes.order}});
     try {
         const response = await axios.post(
             apiURL + '/orders',

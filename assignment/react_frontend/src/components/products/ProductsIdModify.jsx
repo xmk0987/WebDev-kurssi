@@ -5,6 +5,7 @@ import { getProduct, updateProduct } from "../../redux/actions/products/productA
 import { addToCart } from "../../redux/actions/cart/actionCreators";
 import { SUCCESS } from "../../redux/actions/actionTypes";
 import { stateTypes } from "../../tests/constants/components";
+import { Message } from "../Message";
 
 
 
@@ -57,6 +58,7 @@ export const ProductsIdModify = () => {
   return (
     <>
       <h1 className="page-header">Modify Product</h1>
+      <Message />
       <form data-testid="form-container" className="add-product-form" onSubmit={handleModifyProduct}>
         <p data-testid="id-value">{product.id}</p>
         <input type="text" data-testid="name-input" value={name} onChange={(e) => setName(e.target.value)}  placeholder={product.name}/>

@@ -15,8 +15,8 @@ import { apiURL } from '../../../config';
 import { stateTypes } from '../../../tests/constants/components';
 
 export const registerUser = (user) => async (dispatch) => {
-    dispatch({ type: REGISTER_REQUEST });
-  
+    dispatch({ type: LOADING, payload: {message:"Loading", stateType: stateTypes.auth}});
+
     try {
       const response = await axios.post(apiURL + '/register', user, {
         withCredentials: true,
@@ -52,10 +52,11 @@ export const registerUser = (user) => async (dispatch) => {
         },
       });
   
+
       if (response.status !== 200) {
         throw new Error('Failed to login user');
       }
-
+      
       dispatch({ type: SUCCESS, payload: {message:"Login success", stateType: stateTypes.auth}});
       dispatch({ type: LOGIN, payload: response.data.user });
 

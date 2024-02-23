@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
 import { getOrder } from "../../redux/actions/orders/orderActions";
 import { checkStatus } from "../../redux/actions/auth/authActions";
+import { Message } from "../Message";
 
 export const OrdersId = () => {
   const { orderId } = useParams();
@@ -33,6 +34,7 @@ export const OrdersId = () => {
   return (
     <>
       <h1 className="page-header">Order {order.id}</h1>
+      <Message />
       <div data-testid="inspect-container">
         {order.items && order.items.map((item) => (
             <SingleInspectOrder key={item.product.id} item={item}/>

@@ -9,13 +9,13 @@ export function Message() {
 
   const notification = useSelector((state) => state.notification);
 
-  useEffect(() => {
+  /* useEffect(() => {
     const timer = setTimeout(() => {
       dispatch({ type: RESET });
     }, 6000);
 
     return () => clearTimeout(timer);
-  }, [notification.error]);
+  }, [notification.error]);  */
 
   return (
       (notification.message ?

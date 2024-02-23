@@ -5,6 +5,7 @@ import { deleteProduct, getProduct } from "../../redux/actions/products/productA
 import { addToCart } from "../../redux/actions/cart/actionCreators";
 import { SUCCESS } from "../../redux/actions/actionTypes";
 import { stateTypes } from "../../tests/constants/components";
+import { Message } from "../Message";
 
 
 export const ProductsId = () => {
@@ -42,9 +43,11 @@ export const ProductsId = () => {
   return (
     <div data-testid="inspect-container">
       {product ? 
-      <><h1 className="page-header" data-testid="name-value">{product.name}</h1>
-      <p data-testid="description-element" className="mg-bot-1">{product.description}</p>
-      <p data-testid="price-element" className="mg-bot-1">{product.price}€</p>
+      <>
+      <h1 className="page-header" data-testid="name-value">{product.name}</h1>
+      <Message />
+      <p data-testid="description-value" className="mg-bot-1">{product.description}</p>
+      <p data-testid="price-value" className="mg-bot-1">{product.price}€</p>
       {user.role === "admin" ?
       <>
         <button data-testid="delete" className="user-inspect mg-right-05" onClick={handleDelete}>Delete</button>

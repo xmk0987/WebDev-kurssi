@@ -16,7 +16,7 @@ export function User({user}) {
   }
 
   return (
-    <div className="user-container">
+    <div className="user-container" data-testid={`list-item-${user.id}-container`}>
       <div className="user-info">
         <p className="user-name" data-testid="name-value">{user.name}</p>
         <p className="user-role" data-testid="role-value">{user.role}</p>

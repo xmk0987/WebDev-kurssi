@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from "react";
 import {useSelector, useDispatch} from 'react-redux';
-
-import { validEmailRegex, stateTypes } from "../../tests/constants/components";
-import {ERROR, SUCCESS} from '../../redux/actions/actionTypes';
 import { Message } from "../Message";
 import { loginUser } from "../../redux/actions/auth/authActions";
-import { useNavigate } from "react-router-dom";
+import { SUCCESS } from "../../redux/actions/actionTypes";
+import { stateTypes } from "../../tests/constants/components";
 
 export const Login = () => {
   const [email, setEmail] = useState("");
@@ -13,7 +11,6 @@ export const Login = () => {
   const dispatch = useDispatch();
 
   const auth = useSelector(state => state.auth);
-  const navigate = useNavigate();
 
   useEffect(() => {
     if (auth.error === false) {
@@ -22,11 +19,6 @@ export const Login = () => {
     }
   }, [auth.error]);
 
-  useEffect(() => {
-    if (auth.user.role !== "guest") {
-      navigate('/') 
-    }
-  },[auth.user.role]);
 
   const handleChange = (e, param) => {
     e.preventDefault();
@@ -42,16 +34,13 @@ export const Login = () => {
     }
   };
 
-  const user = useSelector(state => state.auth.user);
-
   const handleLoginSubmit = (e) => {
     e.preventDefault();
-    dispatch(loginUser({email:email, password:password}));
-  };
+    dispatch({ type: SUCCESS, payload: {message:"Login success", stateType: stateTypes.auth}});
 
-  useEffect(() => {
-    console.log(user);
-  },[user]);
+    dispatch(loginUser({email:email, password:password}));
+
+  };
 
   return (
     <>

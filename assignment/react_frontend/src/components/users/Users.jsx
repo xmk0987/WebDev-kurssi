@@ -26,7 +26,6 @@ export const Users = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log(users);
     if (auth.user.role === 'admin' && users.length === 0) {
       console.log("get users");
       dispatch(getUsers());
