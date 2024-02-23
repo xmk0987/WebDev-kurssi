@@ -16,6 +16,7 @@
   .store-container {
     height: 100vh;
     position: relative;
+    padding-top: 20px;
   }
   
   .no-display {
@@ -75,7 +76,7 @@
   }
   
   .default-btn {
-    max-width: 80px;
+    max-width: 150px;
   }
   
   .form-item {
@@ -305,6 +306,7 @@
   }
   
   input[type="text"],
+  input[type="number"],
   select {
     width: 100%;
     padding: 10px;
@@ -328,6 +330,12 @@
   button[type="submit"]:hover,
   button[type="button"]:hover {
     background-color: #0056b3;
+  }
+
+
+  button[type="submit"]:disabled {
+    background-color: grey;
+    cursor:default;
   }
 
 

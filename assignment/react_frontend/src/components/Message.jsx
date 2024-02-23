@@ -2,6 +2,7 @@ import React, {useEffect} from "react";
 
 import { useDispatch, useSelector } from "react-redux";
 import {RESET} from '../redux/actions/actionTypes';
+import {dataTestIds} from '../tests/constants/components';
 
 export function Message() {
   const dispatch = useDispatch();
@@ -9,17 +10,21 @@ export function Message() {
   const notification = useSelector((state) => state.notification);
 
   useEffect(() => {
-    const timeout = setTimeout(() => {
+    const timer = setTimeout(() => {
       dispatch({ type: RESET });
-    }, 5000);
+    }, 6000);
 
-    return () => clearTimeout(timeout);
-  }, [dispatch]);
-
+    return () => clearTimeout(timer);
+  }, [notification.error]);
 
   return (
-    <div className={`${notification.message.length === 0 ? 'no-display' : 'message-container'} mg-bot-1 ${notification.error ? 'red' : 'green'}`} data-testid="notifications-container">
-      <p>{notification.message}</p>
-    </div>
-  );
+      (notification.message ?
+        <div className={`message-container mg-bot-1 ${notification.error ? 'red' : 'green'}`} data-testid="notifications-container">
+        <p data-testid={`${notification.error === true 
+        ? dataTestIds.notificationId.error(notification.stateType) 
+        : notification.error === false ? dataTestIds.notificationId.success(notification.stateType) 
+        : dataTestIds.notificationId.loading(notification.stateType)}`}>{notification.message}</p>
+      </div> : null )
+    
+    );  
 }

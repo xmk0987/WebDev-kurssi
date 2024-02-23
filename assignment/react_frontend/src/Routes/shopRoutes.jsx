@@ -30,8 +30,8 @@ export function ShopRoutes() {
       <Route path="/products/:productId" element={<ProductsId />} />
       <Route path="/products/:productId/modify" element={<ProductsIdModify />} />
       <Route path="/users" element={<Users />} />
-      <Route path="/users/:id" element={<UsersId />} />
-      <Route path="/users/:id/modify" element={<UsersIdModify />} />
+      <Route path="/users/:userId" element={<UsersId />} />
+      <Route path="/users/:userId/modify" element={<UsersIdModify />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   );

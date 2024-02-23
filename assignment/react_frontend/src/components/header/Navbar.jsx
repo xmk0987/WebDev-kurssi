@@ -6,12 +6,13 @@ import { GuestNavbar } from "./GuestNavbar";
 
 import { useSelector, useDispatch } from "react-redux";
 
-import { checkStatus } from "../../redux/actions/auth/authActions";
+import { checkStatus, logout } from "../../redux/actions/auth/authActions";
 
 export function Navbar() {
     const user = useSelector(state => state.auth.user);
 
     const [role, setRole ] = useState(user.role);
+    const dispatch = useDispatch();
 
     useEffect(() => {
         setRole(user.role);
@@ -25,7 +26,7 @@ export function Navbar() {
     };
 
     const handleLogout = () => {
-        console.log("Log out");
+        dispatch(logout());
     }
 
     return (
@@ -34,8 +35,8 @@ export function Navbar() {
             {role === "customer" && <CustomerNavbar handleLinkClick={handleLinkClick} handleLogout={handleLogout} />}
             {role === "admin" && <AdminNavbar handleLinkClick={handleLinkClick} handleLogout={handleLogout} />}
             <div className="inline-flex">
-            <p className="navbar-list-item" >Role:&nbsp;</p>
-            <p className="navbar-list-item" data-testid="profile-container">{role}</p>
+                <p className="navbar-list-item" >Role:&nbsp;</p>
+                <p className="navbar-list-item" data-testid="profile-container">{role}</p>
             </div>
         </div>
     );

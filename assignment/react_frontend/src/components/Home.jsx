@@ -1,8 +1,12 @@
 import React from "react";
+import { Message } from "./Message";
 
 
 export const Home = () => {
   return (
-    <div>Home</div>
+    <div>
+      <h1 className="page-header">Home</h1>
+      <Message />
+    </div>
   );
 };

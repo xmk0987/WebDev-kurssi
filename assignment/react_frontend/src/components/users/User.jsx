@@ -1,16 +1,36 @@
 import React from "react";
 
-export function User({ }) {
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { deleteUser } from "../../redux/actions/users/userActions";
+
+export function User({user}) {
+
+  const currentUser = useSelector(state => state.auth.user);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+
+  const handleDeleteUser = () => {
+    dispatch(deleteUser(user.id));
+  }
+
   return (
-    <div class="user-container">
-      <div class="user-info">
-        <p class="user-name" data-testid="name-value">Onni</p>
-        <p class="user-role" data-testid="role-value">Customer</p>
+    <div className="user-container">
+      <div className="user-info">
+        <p className="user-name" data-testid="name-value">{user.name}</p>
+        <p className="user-role" data-testid="role-value">{user.role}</p>
       </div>
-      <div class="user-actions">
-        <button class="user-inspect" data-testid="inspect-2-link">Inspect</button>
-        <button class="user-modify" data-testid="modify">Modify</button>
-        <button class="user-delete" data-testid="delete">Delete</button>
+      <div className="user-actions">
+        {currentUser.id === user.id ? <button className="user-inspect" data-testid={`inspect-${user.id}-link`} onClick={() => navigate(`/users/${user.id}`)}>Inspect</button>
+        : 
+        <>
+        <button className="user-inspect" data-testid={`inspect-${user.id}-link`} onClick={() => navigate(`/users/${user.id}`)}>Inspect</button>
+        <button className="user-modify" data-testid="modify" onClick={() => navigate(`/users/${user.id}/modify`)}>Modify</button>
+        <button className="user-delete" data-testid="delete" onClick={handleDeleteUser}>Delete</button>
+        </>
+        }
+
       </div>
     </div>
   );

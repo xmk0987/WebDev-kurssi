@@ -17,7 +17,7 @@ export function CustomerNavbar({ handleLinkClick, handleLogout }) {
                 <Link to="/cart" data-testid="cart-link" onClick={event => handleLinkClick(event, '/cart')}>Cart</Link>
             </li>
             <li className="navbar-list-item">
-                <Link to="/" data-testid="logout-link" onClick={() => handleLogout()}>Logout</Link>
+                <Link to="/" data-testid="logout" onClick={() => handleLogout()}>Logout</Link>
             </li>
         </ul>
     );

@@ -17,7 +17,7 @@ export function AdminNavbar({ handleLinkClick, handleLogout }) {
                 <Link to="/users" data-testid="users-link" onClick={event => handleLinkClick(event, '/users')}>Users</Link>
             </li>
             <li className="navbar-list-item">
-                <Link to="/" data-testid="logout-link" onClick={() => handleLogout()}>Logout</Link>
+                <Link to="/" data-testid="logout" onClick={() => handleLogout()}>Logout</Link>
             </li>
         </ul>
     );

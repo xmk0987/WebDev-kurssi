@@ -1,28 +1,32 @@
 import React, { useState, useEffect } from "react";
 import {useSelector, useDispatch} from 'react-redux';
 
-import { validEmailRegex } from "../../tests/constants/components";
-import {ERROR} from '../../redux/actions/actionTypes';
+import { validEmailRegex, stateTypes } from "../../tests/constants/components";
+import {ERROR, SUCCESS} from '../../redux/actions/actionTypes';
 import { Message } from "../Message";
 import { loginUser } from "../../redux/actions/auth/authActions";
+import { useNavigate } from "react-router-dom";
 
 export const Login = () => {
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
 
-  const auth = (state => state.auth);
+  const auth = useSelector(state => state.auth);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (auth.error === false) {
       setEmail("");
       setPassword("");
-      setTimeout(() => {
-        navigate('/');
-      }, 2000);
     }
   }, [auth.error]);
+
+  useEffect(() => {
+    if (auth.user.role !== "guest") {
+      navigate('/') 
+    }
+  },[auth.user.role]);
 
   const handleChange = (e, param) => {
     e.preventDefault();
@@ -42,15 +46,7 @@ export const Login = () => {
 
   const handleLoginSubmit = (e) => {
     e.preventDefault();
-    console.log(email, password);
-    if (!validEmailRegex.test(email)) {
-      dispatch({type: ERROR, payload: "Email not in right format"});
-    } 
-    else if (password.length < 10) {
-      dispatch({type: ERROR, payload: "Password must be 10 characters"});
-    } else {
-      dispatch(loginUser({email:email, password:password}));
-    }
+    dispatch(loginUser({email:email, password:password}));
   };
 
   useEffect(() => {
@@ -64,7 +60,7 @@ export const Login = () => {
       <form className="register-form" data-testid="form-container" onSubmit={(e) => handleLoginSubmit(e)}>
         <div className="form-item">
           <label>Email</label>
-          <input required type="email" placeholder="Enter email"
+          <input type="text" placeholder="Enter email"
             data-testid="email-input" value={email}
             onChange={(e) => handleChange(e, "email")} />
         </div>
@@ -74,7 +70,7 @@ export const Login = () => {
             data-testid="password-input" value={password}
             onChange={(e) => handleChange(e, "password")} />
         </div>
-        <button type="submit" className="default-btn" data-testid="submit">Register</button>
+        <button type="submit" className="user-input default-btn" data-testid="submit">Login</button>
       </form>
     </>
   );

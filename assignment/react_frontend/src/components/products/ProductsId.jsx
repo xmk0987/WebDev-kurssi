@@ -1,25 +1,28 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useParams } from 'react-router-dom';
-import { getProduct } from "../../redux/actions/products/productActions";
+import { useNavigate, useParams } from 'react-router-dom';
+import { deleteProduct, getProduct } from "../../redux/actions/products/productActions";
 import { addToCart } from "../../redux/actions/cart/actionCreators";
-
+import { SUCCESS } from "../../redux/actions/actionTypes";
+import { stateTypes } from "../../tests/constants/components";
 
 
 export const ProductsId = () => {
   const { productId } = useParams();
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const products = useSelector(state => state.products);
   const user = useSelector(state => state.auth.user);
-  const [product, setProduct] = useState(products.find(product => product.id === productId) || "");
+
+  let product = products.find(product => product.id === productId);
 
   useEffect(() => {
     const fetchData = async () => {
       if (product === "") {
         const result = await getProduct(productId);
-        setProduct(result);
+        product = result;
       }
     };
 
@@ -28,19 +31,26 @@ export const ProductsId = () => {
 
   const handleAdd = () => {
     dispatch(addToCart(product));
+    dispatch({ type: SUCCESS, payload: {message:"Product added", stateType: stateTypes.cart}});
+  }
+
+  const handleDelete = () => {
+    dispatch(deleteProduct(productId));
+    navigate(-1);
   }
 
   return (
     <div data-testid="inspect-container">
-      <h1 className="page-header" data-testid="name-value">{product.name}</h1>
+      {product ? 
+      <><h1 className="page-header" data-testid="name-value">{product.name}</h1>
       <p data-testid="description-element" className="mg-bot-1">{product.description}</p>
       <p data-testid="price-element" className="mg-bot-1">{product.price}€</p>
-      <button data-testid="add" className="user-inspect mg-right-05" onClick={handleAdd}>Add</button>
       {user.role === "admin" ?
       <>
-        <button data-testid="delete" className="user-inspect mg-right-05">Delete</button>
-        <button data-testid="modify" className="user-inspect">Modify</button>
-      </> : null}
+        <button data-testid="delete" className="user-inspect mg-right-05" onClick={handleDelete}>Delete</button>
+        <button data-testid="modify" className="user-inspect" onClick={() => navigate(`/products/${product.id}/modify`)}>Modify</button>
+      </> : <button data-testid="add" className="user-inspect mg-right-05" onClick={handleAdd}>Add</button>
+      }</>: null}
     </div>
   );
 };

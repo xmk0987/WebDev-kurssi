@@ -15,13 +15,15 @@ const App = () => {
   const dispatch = useDispatch();
 
   const cart = useSelector(state => state.cart);
+  const auth = useSelector(state => state.auth)
 
   useEffect(() => {
     dispatch(checkStatus());
-    console.log("check status");
-    dispatch(initializeCartFromLocalStorage());
   }, []);
 
+  useEffect(() => {
+    dispatch(initializeCartFromLocalStorage());
+  }, [auth.user.role])
 
   useEffect(() => {
     if (cart.length !== 0) {
