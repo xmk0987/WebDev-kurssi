@@ -35,12 +35,12 @@ export const UsersId = () => {
 
   return (
     <>
-      <h1 className="page-header">User {user.id}</h1>
+      <h1 className="page-header" data-testid="name-value">{user.name}</h1>
+
       <div className="user-container" data-testid="inspect-container">
         <div className="user-info">
-          <p className="user-name" data-testid="name-value">{user.name}</p>
-          <p className="user-role" data-testid="role-value">{user.role}</p>
           <p className="user-email" data-testid="email-value">{user.email}</p>
+          <p className="user-role" data-testid="role-value">{user.role}</p>
         </div>
         {currentUser.id === user.id ? null : 
         <div className="user-actions">

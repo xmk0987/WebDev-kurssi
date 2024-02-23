@@ -4,6 +4,8 @@ import { getOrders } from "../../redux/actions/orders/orderActions";
 import { useSelector, useDispatch } from "react-redux";
 import { Message } from "../Message";
 import { useNavigate } from "react-router-dom";
+import { checkStatus } from "../../redux/actions/auth/authActions.js";
+
 
 export const Orders = () => {
 
@@ -14,26 +16,21 @@ export const Orders = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (auth.user.role !== "guest") {
-      if (orders.length === 0) {
-        dispatch(getOrders());
-      }
-    } else {
-      navigate('/login')
-    }
+    dispatch(checkStatus());
+  }, [navigate]);
+
+  useEffect(() => {
+    dispatch(getOrders());
   },[auth.user.role]);
 
-  const filteredOrders = auth.user.role === 'admin' ? orders: orders.filter(order => order.customerId === auth.user.id);
-
-  console.log(filteredOrders);
 
   return (
     <>
       <h1 className="page-header">Orders</h1>
       <Message />
-      {filteredOrders && filteredOrders.length === 0 ? <div data-testid="empty-container"></div>
+      {orders.length === 0 ? <div data-testid="empty-container"></div>
       :
-      filteredOrders.map((order) => (
+      orders.map((order) => (
         <SingleOrder key={order.id} order={order}/>
       ))}
     </>

@@ -14,11 +14,7 @@ export function Navbar() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (user.role !== 'guest') {
-            navigate('/');
-        } else {
-            navigate('/login');
-        }
+        dispatch(checkStatus());
     }, [user.role]);
 
     const handleLinkClick = (event, path) => {

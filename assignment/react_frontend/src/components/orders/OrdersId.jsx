@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import { useDispatch, useSelector } from "react-redux";
 import { getOrder } from "../../redux/actions/orders/orderActions";
@@ -8,26 +8,27 @@ import { Message } from "../Message";
 
 export const OrdersId = () => {
   const { orderId } = useParams();
-  console.log(orderId);
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const orders = useSelector(state => state.orders);
   const auth = useSelector(state => state.auth);
 
   const [order, setOrder] = useState(orders.find(order => order.id === orderId) || "");
 
   useEffect(() => {
-    
-    if (orders.length === 0 && auth.user.role !== 'guest') {
-      const fetchOrder = async () => {
-        const result = await getOrder(orderId);
-        setOrder(result);
-      }
+    dispatch(checkStatus());
+  }, [navigate]);
 
-      fetchOrder();
+  useEffect(() => {
+    const fetchOrder = async () => {
+      const result = await getOrder(orderId);
+      setOrder(result);
     }
+
+    fetchOrder();
     
-  }, [auth.user.role, orderId]);
+  }, [auth.user.role]);
 
   return (
     <>
@@ -35,7 +36,7 @@ export const OrdersId = () => {
       <Message />
       <div data-testid="inspect-container">
           {order.items.map((item) => (
-            <div className="list-item-container" data-testid={`list-item-${item.product.id}-container`}>
+            <div key={item.product.id} className="list-item-container" data-testid={`list-item-${item.product.id}-container`}>
               <p  data-testid="name-value">{item.product.name}</p>
               <p  data-testid="quantity-value">{item.quantity}</p>
             </div>

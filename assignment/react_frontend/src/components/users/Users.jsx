@@ -12,6 +12,8 @@ export const Users = () => {
   const auth = useSelector(state => state.auth);
   const navigate = useNavigate();
 
+  
+
   useEffect(() => {
     if (auth.user.role === 'customer') {
       navigate('/');
@@ -20,7 +22,6 @@ export const Users = () => {
       navigate('/login');
     } 
   },[auth.user.role]);
-
 
   const users = useSelector(state => state.users)
   const dispatch = useDispatch();
@@ -36,7 +37,7 @@ export const Users = () => {
     <>
       <h1 className="page-header">Users</h1>
       <Message />
-      {users.length === 0 ? <div></div>
+      {users.length === 0 ? <div data-testid="empty-container"></div>
       : 
       users.map((user) => (
         <User key={user.id} user={user}/>

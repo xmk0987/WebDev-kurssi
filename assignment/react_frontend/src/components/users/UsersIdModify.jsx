@@ -53,7 +53,7 @@ export const UsersIdModify = () => {
         </div>
         <div className="form-group">
           <label htmlFor="role-select">Role:</label>
-          <select id="role-select" className="role-select" value={selectedRole} onChange={handleRoleChange}>
+          <select data-testid="role-select" className="role-select" value={selectedRole} onChange={handleRoleChange}>
             <option value="admin">admin</option>
             <option value="customer">customer</option>
           </select>
