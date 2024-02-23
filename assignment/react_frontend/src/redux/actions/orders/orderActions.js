@@ -1,6 +1,6 @@
 import axios from "axios";
 import { apiURL } from "../../../config";
-import { GET_ORDERS, ERROR, POST_ORDERS, SUCCESS, RESET_CART } from "../actionTypes";
+import { GET_ORDERS, ERROR, POST_ORDERS, SUCCESS, RESET_CART, LOADING } from "../actionTypes";
 import { stateTypes } from "../../../tests/constants/components";
 import { resetCart } from "../cart/actionCreators";
 

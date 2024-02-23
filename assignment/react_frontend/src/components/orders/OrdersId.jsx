@@ -22,7 +22,6 @@ export const OrdersId = () => {
       const fetchOrder = async () => {
         const result = await getOrder(orderId);
         setOrder(result);
-        
       }
 
       fetchOrder();
@@ -30,27 +29,19 @@ export const OrdersId = () => {
     
   }, [auth.user.role, orderId]);
 
-
   return (
     <>
       <h1 className="page-header">Order {order.id}</h1>
       <Message />
       <div data-testid="inspect-container">
-        {order.items && order.items.map((item) => (
-            <SingleInspectOrder key={item.product.id} item={item}/>
-          ))
-          } 
+          {order.items.map((item) => (
+            <div className="list-item-container" data-testid={`list-item-${item.product.id}-container`}>
+              <p  data-testid="name-value">{item.product.name}</p>
+              <p  data-testid="quantity-value">{item.quantity}</p>
+            </div>
+          ))}
       </div>
     </>
   );
 };
 
-
-const SingleInspectOrder = ({item}) => {
-  return (
-    <div className="list-item-container" data-testid={`list-item-${item.product.id}-container`}>
-      <p  data-testid="name-value">{item.product.name}</p>
-      <p  data-testid="quantity-value">{item.quantity}</p>
-    </div>
-  )
-}

@@ -25,12 +25,13 @@ export const Orders = () => {
 
   const filteredOrders = auth.user.role === 'admin' ? orders: orders.filter(order => order.customerId === auth.user.id);
 
+  console.log(filteredOrders);
 
   return (
     <>
       <h1 className="page-header">Orders</h1>
       <Message />
-      {filteredOrders.length === 0 ? <div data-testid="empty-container"></div>
+      {filteredOrders && filteredOrders.length === 0 ? <div data-testid="empty-container"></div>
       :
       filteredOrders.map((order) => (
         <SingleOrder key={order.id} order={order}/>

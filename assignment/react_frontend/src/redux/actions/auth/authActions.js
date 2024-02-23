@@ -35,10 +35,9 @@ export const registerUser = (user) => async (dispatch) => {
 
     } catch (error) {
       dispatch({ type: REGISTER_FAILURE, payload: error });
-      dispatch({ type: ERROR, payload: {message: error.response.data.error.email, stateType: stateTypes.auth}});
+      dispatch({ type: ERROR, payload: {message: error.response.data.error.email || "Unknown error", stateType: stateTypes.auth}});
     }
   };
-
 
   export const loginUser = (user) => async (dispatch) => {  
     dispatch({ type: LOADING, payload: {message:"Loading", stateType: stateTypes.auth}});
@@ -56,9 +55,10 @@ export const registerUser = (user) => async (dispatch) => {
       if (response.status !== 200) {
         throw new Error('Failed to login user');
       }
-      
-      dispatch({ type: SUCCESS, payload: {message:"Login success", stateType: stateTypes.auth}});
+
       dispatch({ type: LOGIN, payload: response.data.user });
+      dispatch({ type: SUCCESS, payload: {message:"Login success", stateType: stateTypes.auth}});
+
 
     } catch (error) {
       dispatch({ type: ERROR, payload: {message:"Login failed", stateType: stateTypes.auth}});

@@ -35,21 +35,20 @@ export const Cart = () => {
     }
   }
 
+  
   return (
     <>
       <h1 className="page-header">Cart</h1>
       <Message />
-      {cart.length === 0 ?
+      {cart && cart.length !== 0 ?
+            <>
+            {cart.map((item) => (
+              <CardItem key={item.product.id} item={item}/>
+            ))}
+            <button data-testid="submit" onClick={buy}>Submit</button>
+          </>:
       <div data-testid="empty-container"></div> 
-      : 
-      <>
-        {cart.map((item) => (
-          <CardItem key={item.product.id} item={item}/>
-        ))}
-        <button data-testid="submit" onClick={buy}>Submit</button>
-      </>
-
-    }
+      }
     </>
   );
 };
