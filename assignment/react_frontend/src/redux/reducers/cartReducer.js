@@ -24,7 +24,7 @@ const cartReducer = (state = [], action) => {
         case SET_CART:
             return action.payload;
         case RESET_CART: 
-            return []
+            return [];
         default:
             return state;
     }

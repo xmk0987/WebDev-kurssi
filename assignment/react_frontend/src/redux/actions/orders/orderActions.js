@@ -30,6 +30,7 @@ export const getOrders  = () => async (dispatch) =>  {
 
 export const postOrders = (items) => async (dispatch) => {
     dispatch({ type: LOADING, payload: {message:"Orders updating", stateType: stateTypes.order}});
+    console.log("order loading");
     try {
         const response = await axios.post(
             apiURL + '/orders',
@@ -48,8 +49,9 @@ export const postOrders = (items) => async (dispatch) => {
         }
 
         dispatch({ type: SUCCESS, payload: { message: "Order success", stateType: stateTypes.order } });
+        console.log("order success");
+
         dispatch({ type: POST_ORDERS, payload: response.data });
-        dispatch(resetCart());
     } catch (error) {
         dispatch({ type: ERROR, payload: { message: "Order failed", stateType: stateTypes.order } });
     }

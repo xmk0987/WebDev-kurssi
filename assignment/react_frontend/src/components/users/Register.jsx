@@ -5,13 +5,11 @@ import { Message } from "../Message";
 import { validEmailRegex } from "../../tests/constants/components";
 import { useDispatch, useSelector } from 'react-redux';
 
-import { useNavigate } from "react-router-dom";
 import { stateTypes } from "../../tests/constants/components";
 import { registerUser } from "../../redux/actions/auth/authActions";
 
 export const Register = () => {
   const auth = useSelector((state) => state.auth);
-  const notification = useSelector((state) => state.notification);
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -19,7 +17,6 @@ export const Register = () => {
   const [passwordConfirm, setPasswordConfirm] = useState("");
 
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   useEffect(() => {
     if (auth.error === false) {
@@ -29,12 +26,6 @@ export const Register = () => {
       setPasswordConfirm("");
     }
   }, [auth.error]);
-
-  useEffect(() => {
-    if (auth.user.role !== "guest") {
-      navigate('/') 
-    }
-  },[auth.user.role]);
 
   const handleChange = (e, param) => {
     e.preventDefault();

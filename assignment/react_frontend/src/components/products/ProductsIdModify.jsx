@@ -2,9 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate, useParams } from 'react-router-dom';
 import { getProduct, updateProduct } from "../../redux/actions/products/productActions";
-import { addToCart } from "../../redux/actions/cart/actionCreators";
-import { SUCCESS } from "../../redux/actions/actionTypes";
-import { stateTypes } from "../../tests/constants/components";
 import { Message } from "../Message";
 
 
@@ -23,15 +20,6 @@ export const ProductsIdModify = () => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-
-  useEffect(() => {
-    if (user.role === 'guest') {
-      navigate('/login')
-    } else if (user.role === 'customer') {
-      navigate('/')
-    }
-  }, [user.role]);
 
   useEffect(() => {
     const fetchData = async () => {

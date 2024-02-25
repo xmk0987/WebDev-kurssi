@@ -70,7 +70,6 @@ export const registerUser = (user) => async (dispatch) => {
     dispatch({ type: CHECK_STATUS_REQUEST });  
     try {
       const response = await axios.get(apiURL + '/check-status', { withCredentials: true });
-      console.log("in check")
       if (response.status !== 200) {
         throw new Error("Not authenticated");
       }

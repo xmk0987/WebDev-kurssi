@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 import { useDispatch, useSelector } from "react-redux";
 import { getOrder } from "../../redux/actions/orders/orderActions";
@@ -10,7 +10,6 @@ export const OrdersId = () => {
   const { orderId } = useParams();
 
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const orders = useSelector(state => state.orders);
   const auth = useSelector(state => state.auth);
 
@@ -18,7 +17,7 @@ export const OrdersId = () => {
 
   useEffect(() => {
     dispatch(checkStatus());
-  }, [navigate]);
+  }, []);
 
   useEffect(() => {
     const fetchOrder = async () => {

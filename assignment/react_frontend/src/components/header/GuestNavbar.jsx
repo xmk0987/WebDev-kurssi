@@ -1,24 +1,13 @@
 import React from "react";
-import { Link } from "react-router-dom";
 
 export function GuestNavbar({ handleLinkClick }) {
     return (
-        <ul className="navbar-list" data-testid="navbar-container">
-            <li className="navbar-list-item">
-                <Link to="/" data-testid="home-link" onClick={event => handleLinkClick(event, '/')}>Home</Link>
-            </li>
-            <li className="navbar-list-item">
-                <Link to="/products" data-testid="products-link" onClick={event => handleLinkClick(event, '/products')}>Products</Link>
-            </li>
-            <li className="navbar-list-item">
-                <Link to="/cart" data-testid="cart-link" onClick={event => handleLinkClick(event, '/cart')}>Cart</Link>
-            </li>
-            <li className="navbar-list-item">
-                <Link to="/login" data-testid="login-link" onClick={event => handleLinkClick(event, '/login')}>Login</Link>
-            </li>
-            <li className="navbar-list-item">
-                <Link to="/register" data-testid="register-link" onClick={event => handleLinkClick(event, '/register')}>Register</Link>
-            </li>
-        </ul>
+        <>
+            <a href="/" data-testid="home-link" onClick={event => handleLinkClick(event, '/')}>Home</a>
+            <a href="/products" data-testid="products-link" onClick={event => handleLinkClick(event, '/products')}>Products</a>
+            <a href="/cart" data-testid="cart-link" onClick={event => handleLinkClick(event, '/cart')}>Cart</a>
+            <a href="/login" data-testid="login-link" onClick={event => handleLinkClick(event, '/login')}>Login</a>
+            <a href="/register" data-testid="register-link" onClick={event => handleLinkClick(event, '/register')}>Register</a>
+        </>
     );
 }

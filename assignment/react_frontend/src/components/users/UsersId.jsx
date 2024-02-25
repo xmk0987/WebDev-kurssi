@@ -2,6 +2,7 @@ import React, {useState, useEffect} from "react";
 import { deleteUser, getUser } from "../../redux/actions/users/userActions";
 import { useParams, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+import { checkStatus } from "../../redux/actions/auth/authActions";
 
 export const UsersId = () => {
   const { userId } = useParams();
@@ -11,8 +12,12 @@ export const UsersId = () => {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  
   useEffect(() => {
-    if (currentUser.role === 'admin') {
+    dispatch(checkStatus());
+    console.log(currentUser.role);
+    console.log(user);
+    if (currentUser.role === 'admin' && user === "") {
       const fetchData = async () => {
         if (user === "") {
           const result = await getUser(userId);
@@ -21,12 +26,8 @@ export const UsersId = () => {
       };
   
       fetchData();
-    } else if (currentUser.role === 'customer') {
-      navigate('/home');
-    } else {
-      navigate('/login');
-    }
-  }, []);
+    } 
+  }, [currentUser.role]);
 
   const handleDeleteUser = () => {
     dispatch(deleteUser(user.id));

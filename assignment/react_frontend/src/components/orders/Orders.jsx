@@ -3,7 +3,6 @@ import { SingleOrder } from "./SingleOrder";
 import { getOrders } from "../../redux/actions/orders/orderActions";
 import { useSelector, useDispatch } from "react-redux";
 import { Message } from "../Message";
-import { useNavigate } from "react-router-dom";
 import { checkStatus } from "../../redux/actions/auth/authActions.js";
 
 
@@ -13,13 +12,10 @@ export const Orders = () => {
   const auth = useSelector(state => state.auth);
 
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(checkStatus());
-  }, [navigate]);
 
-  useEffect(() => {
     dispatch(getOrders());
   },[auth.user.role]);
 

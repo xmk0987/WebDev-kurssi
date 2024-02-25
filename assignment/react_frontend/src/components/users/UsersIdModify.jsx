@@ -22,12 +22,8 @@ export const UsersIdModify = () => {
       };
 
       fetchData();
-    } else if (currentUser.role === 'customer') {
-      navigate('/home');
-    } else {
-      navigate('/login');
     }
-  }, []);
+  }, [currentUser.role]);
 
   const handleCancel = () => {
     navigate(-1); 

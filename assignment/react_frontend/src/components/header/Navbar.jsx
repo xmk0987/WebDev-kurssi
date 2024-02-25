@@ -17,6 +17,12 @@ export function Navbar() {
         dispatch(checkStatus());
     }, [user.role]);
 
+    useEffect(() => {
+        if (user.role === "guest") {
+            navigate('/login');
+        }
+    }, [user.role]);
+
     const handleLinkClick = (event, path) => {
         event.preventDefault();
         navigate(path);
@@ -24,14 +30,13 @@ export function Navbar() {
 
     const handleLogout = () => {
         dispatch(logout());
-        navigate('/login');
     }
 
     return (
         <div className="navbar" data-testid="navbar-container">
-            {user.role === "guest" && <GuestNavbar handleLinkClick={handleLinkClick} />}
             {user.role === "customer" && <CustomerNavbar handleLinkClick={handleLinkClick} handleLogout={handleLogout} />}
             {user.role === "admin" && <AdminNavbar handleLinkClick={handleLinkClick} handleLogout={handleLogout} />}
+            {user.role !== "customer" && user.role !== "admin" && <GuestNavbar handleLinkClick={handleLinkClick} />}
             <div className="inline-flex">
                 <p className="navbar-list-item" >Role:&nbsp;</p>
                 <div className="navbar-list-item" data-testid="profile-container"><p data-testid="role-value">{user.role}</p></div>
