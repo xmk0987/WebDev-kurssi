@@ -39,7 +39,7 @@ export function Navbar() {
             {user.role !== "customer" && user.role !== "admin" && <GuestNavbar handleLinkClick={handleLinkClick} />}
             <div className="inline-flex">
                 <p className="navbar-list-item" >Role:&nbsp;</p>
-                <div className="navbar-list-item" data-testid="profile-container"><p data-testid="role-value">{user.role}</p></div>
+                <p className="navbar-list-item" data-testid="profile-container">{user.role || 'guest'}</p>
             </div>
         </div>
     );

@@ -71,7 +71,7 @@ export const deleteUser = (id) => async (dispatch) => {
         dispatch({ type: SUCCESS, payload: {message:"User deleted", stateType: stateTypes.user}});
 
     } catch (error) {
-        dispatch({ type: ERROR, payload: {message:"Can't delete user", stateType: stateTypes.product}});
+        dispatch({ type: ERROR, payload: {message:"Can't delete user", stateType: stateTypes.user}});
     }
 }
 
@@ -95,7 +95,7 @@ export const modifyUser = (id, role) => async (dispatch) => {
         dispatch({ type: SUCCESS, payload: {message:"User modified", stateType: stateTypes.user}});
 
     } catch (error) {
-        dispatch({ type: ERROR, payload: {message:"Can't modify user", stateType: stateTypes.product}});
+        dispatch({ type: ERROR, payload: {message:"Can't modify user", stateType: stateTypes.user}});
     }
 }
 

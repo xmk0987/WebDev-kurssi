@@ -21,10 +21,18 @@ import { checkStatus } from "../redux/actions/auth/authActions.js";
 export function ShopRoutes() {
   const user = useSelector(state => state.auth.user);
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
   useEffect(() => {
     dispatch(checkStatus());
   }, []);
+
+/*   useEffect(() => {
+    if (!user || user.role === 'guest') {
+      navigate('/login');
+    } else {
+      navigate('/');
+    }
+  }, [user.role]); */
 
   return (
     <Routes>

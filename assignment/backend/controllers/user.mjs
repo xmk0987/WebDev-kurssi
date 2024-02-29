@@ -32,7 +32,7 @@ const respondWithErrorMessages = (req, res, err) => {
 
 export const checkStatus = (req, res) => {
   if (!req.user) {
-    return res.json({ user: { role: 'guest' } });
+    return res.json({ user: { role: 'guest' } }); 
   }
 
   res.json({ user: req.user });
@@ -84,6 +84,7 @@ export const loginUser = async (req, res) => {
   // save token to cookie and send user data to the frontend
   log('Login successful!');
   const token = user.getToken();
+  console.log(token);
   res.cookie('token', token, { ...res.app.get('cookieOptions'), signed: true });
   return res.json({ user });
 };

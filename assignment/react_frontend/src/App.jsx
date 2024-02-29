@@ -10,16 +10,19 @@ import './styles/app.css'
 
 import { useDispatch, useSelector } from "react-redux";
 import { initializeCartFromLocalStorage } from "./redux/actions/cart/actionCreators.js";
+import { useNavigate } from "react-router-dom";
 
 const App = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const cart = useSelector(state => state.cart);
   const auth = useSelector(state => state.auth)
 
   useEffect(() => {
+    console.log("tarkistetaan");
     dispatch(checkStatus());
-  }, []);
+  }, [navigate]);
 
   useEffect(() => {
     dispatch(initializeCartFromLocalStorage());

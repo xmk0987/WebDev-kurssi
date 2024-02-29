@@ -36,8 +36,8 @@ export const Login = () => {
 
   const handleLoginSubmit = (e) => {
     e.preventDefault();
-    dispatch({ type: SUCCESS, payload: {message:"Login success", stateType: stateTypes.auth}});
-
+/*     dispatch({ type: SUCCESS, payload: {message:"Login success", stateType: stateTypes.auth}});
+ */
     dispatch(loginUser({email:email, password:password}));
 
   };

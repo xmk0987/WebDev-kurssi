@@ -30,8 +30,8 @@ export const registerUser = (user) => async (dispatch) => {
         throw new Error('Failed to register user');
       }
 
+      dispatch({ type: SUCCESS, payload: {message:"Register success", stateType: stateTypes.auth}});
       dispatch({ type: REGISTER_SUCCESS, payload: response.data.user });
-      dispatch({ type: SUCCESS, payload: {message:"Login success", stateType: stateTypes.auth}});
 
     } catch (error) {
       dispatch({ type: REGISTER_FAILURE, payload: error });
@@ -56,9 +56,8 @@ export const registerUser = (user) => async (dispatch) => {
         throw new Error('Failed to login user');
       }
 
-      dispatch({ type: LOGIN, payload: response.data.user });
       dispatch({ type: SUCCESS, payload: {message:"Login success", stateType: stateTypes.auth}});
-
+      dispatch({ type: LOGIN, payload: response.data.user });
 
     } catch (error) {
       dispatch({ type: ERROR, payload: {message:"Login failed", stateType: stateTypes.auth}});
@@ -67,16 +66,20 @@ export const registerUser = (user) => async (dispatch) => {
 
 
   export const checkStatus = () => async (dispatch) => {
-    dispatch({ type: CHECK_STATUS_REQUEST });  
+    dispatch({ type: LOADING, payload: {message:"Status check loading", stateType: stateTypes.auth}});
     try {
       const response = await axios.get(apiURL + '/check-status', { withCredentials: true });
       if (response.status !== 200) {
         throw new Error("Not authenticated");
       }
   
+      dispatch({ type: SUCCESS, payload: {message:"Status checked", stateType: stateTypes.auth}});
       dispatch({ type: CHECK_STATUS_SUCCESS, payload: response.data.user });
+
     } catch (error) {
       dispatch({ type: CHECK_STATUS_FAILURE, payload: error.message });
+      dispatch({ type: ERROR, payload: {message:"Status check failed", stateType: stateTypes.auth}});
+
     }
   };
   
@@ -88,10 +91,13 @@ export const logout = () => async (dispatch) => {
     if (response.status !== 200) {
       throw new Error("Failed to logout");
     }
-    dispatch({ type: LOGOUT});
+
     dispatch({ type: SUCCESS, payload: {message:"Logout success", stateType: stateTypes.auth}});
+    dispatch({ type: LOGOUT});
 
   } catch (error) {
     dispatch({ type: CHECK_STATUS_FAILURE, payload: error.message });
+    dispatch({ type: ERROR, payload: {message:"Logout failed", stateType: stateTypes.auth}});
+
   }
 };

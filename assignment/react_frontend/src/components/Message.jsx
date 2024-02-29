@@ -24,7 +24,6 @@ export function Message() {
         ? dataTestIds.notificationId.error(notification.stateType) 
         : notification.error === false ? dataTestIds.notificationId.success(notification.stateType) 
         : dataTestIds.notificationId.loading(notification.stateType)}`}>{notification.message}</p>
-      </div> : null )
-    
+      </div> : <div data-testid="empty-container"></div> )
     );  
 }

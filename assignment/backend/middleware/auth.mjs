@@ -12,6 +12,7 @@ const log = debug('assignment-backend:auth-middleware');
  * @returns {string|null} token string or null if missing
  */
 const getTokenFromCookie = req => {
+  console.log(req);
   if (!('signedCookies' in req) || !req.signedCookies.token) {
     log('Missing or invalid token cookie');
     return null;
@@ -28,7 +29,7 @@ export const getCurrentUser = (req, res, next) => {
     // Check if a token was received
     const cookieOptions = { ...res.app.get('cookieOptions'), signed: true };
     const token = getTokenFromCookie(req);
-    if (!token) return next(); // no token
+    if (!token) return next(); // no token npm
 
     // Verify the received token
     const decodedToken = User.verifyToken(token);
