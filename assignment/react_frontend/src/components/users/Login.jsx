@@ -12,27 +12,12 @@ export const Login = () => {
 
   const auth = useSelector(state => state.auth);
 
-  useEffect(() => {
+/*   useEffect(() => {
     if (auth.error === false) {
       setEmail("");
       setPassword("");
     }
-  }, [auth.error]);
-
-
-  const handleChange = (e, param) => {
-    e.preventDefault();
-    switch (param) {
-      case "email":
-        setEmail(e.target.value);
-        break;
-      case "password":
-        setPassword(e.target.value);
-        break;
-      default:
-        break;
-    }
-  };
+  }, [auth.error]); */
 
   const handleLoginSubmit = (e) => {
     e.preventDefault();
@@ -51,13 +36,13 @@ export const Login = () => {
           <label>Email</label>
           <input type="text" placeholder="Enter email"
             data-testid="email-input" value={email}
-            onChange={(e) => handleChange(e, "email")} />
+            onChange={(e) => setEmail(e.target.value)} />
         </div>
         <div className="form-item">
           <label>Password</label>
           <input type="password" required placeholder="Password"
             data-testid="password-input" value={password}
-            onChange={(e) => handleChange(e, "password")} />
+            onChange={(e) => setPassword(e.target.value)} />
         </div>
         <button type="submit" className="user-input default-btn" data-testid="submit">Login</button>
       </form>

@@ -57,12 +57,11 @@ export const registerUser = (user) => async (dispatch) => {
       if (response.status !== 200) {
         throw new Error('Failed to login user');
       }
-
-      dispatch({ type: LOGIN, payload: response.data.user });
       dispatch({ type: SUCCESS, payload: {message:"Login success", stateType: stateTypes.auth}});
+      dispatch({ type: LOGIN, payload: response.data.user });
 
     } catch (error) {
-      console.error(error);
+      console.log("error happened");
       dispatch({ type: ERROR, payload: {message:"Login failed", stateType: stateTypes.auth}});
     }
   };
