@@ -22,17 +22,20 @@ export function ShopRoutes() {
   const user = useSelector(state => state.auth.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  
   useEffect(() => {
     dispatch(checkStatus());
   }, []);
 
-/*   useEffect(() => {
-    if (!user || user.role === 'guest') {
-      navigate('/login');
-    } else {
+ /*  useEffect(() => {
+    if (user.role === 'admin' || user.role === 'customer') {
       navigate('/');
+    } else {
+      navigate('/login');
     }
   }, [user.role]); */
+
+  
 
   return (
     <Routes>

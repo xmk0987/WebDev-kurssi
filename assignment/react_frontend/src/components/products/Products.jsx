@@ -28,7 +28,7 @@ export const Products = () => {
       ) : (
         <div data-testid="empty-container"></div>
       )}
-      {user.role === "admin" && !add ? (
+      {user && user.role === "admin" && !add ? (
         <button
           className="mg-bot-2 mg-top-1 user-inspect"
           onClick={() => toggleAdd(true)}
@@ -37,7 +37,7 @@ export const Products = () => {
           ADD
         </button>
       ) : null}
-      {add ? <AddProduct toggleAdd={toggleAdd} /> : null}
+      {add && user && user.role === "admin" ? <AddProduct toggleAdd={toggleAdd} /> : null}
     </>
   );
 };

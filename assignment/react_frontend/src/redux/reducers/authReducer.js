@@ -28,6 +28,8 @@ switch (action.type) {
     case REGISTER_SUCCESS:
     case CHECK_STATUS_SUCCESS:
     case LOGIN:
+        console.log(action.payload)
+
         return {
             ...state,
             loading: false,

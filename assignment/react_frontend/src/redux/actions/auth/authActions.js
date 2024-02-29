@@ -1,5 +1,7 @@
 
 import axios from 'axios';
+axios.defaults.withCredentials = true;
+
 import { REGISTER_REQUEST, 
         REGISTER_SUCCESS, 
         REGISTER_FAILURE, 
@@ -56,30 +58,31 @@ export const registerUser = (user) => async (dispatch) => {
         throw new Error('Failed to login user');
       }
 
-      dispatch({ type: SUCCESS, payload: {message:"Login success", stateType: stateTypes.auth}});
       dispatch({ type: LOGIN, payload: response.data.user });
+      dispatch({ type: SUCCESS, payload: {message:"Login success", stateType: stateTypes.auth}});
 
     } catch (error) {
+      console.error(error);
       dispatch({ type: ERROR, payload: {message:"Login failed", stateType: stateTypes.auth}});
     }
   };
 
 
   export const checkStatus = () => async (dispatch) => {
-    dispatch({ type: LOADING, payload: {message:"Status check loading", stateType: stateTypes.auth}});
-    try {
+/*     dispatch({ type: LOADING, payload: {message:"Status check loading", stateType: stateTypes.auth}});
+ */    try {
       const response = await axios.get(apiURL + '/check-status', { withCredentials: true });
       if (response.status !== 200) {
         throw new Error("Not authenticated");
       }
   
-      dispatch({ type: SUCCESS, payload: {message:"Status checked", stateType: stateTypes.auth}});
-      dispatch({ type: CHECK_STATUS_SUCCESS, payload: response.data.user });
+/*       dispatch({ type: SUCCESS, payload: {message:"Status checked", stateType: stateTypes.auth}});
+ */      dispatch({ type: CHECK_STATUS_SUCCESS, payload: response.data.user });
 
     } catch (error) {
       dispatch({ type: CHECK_STATUS_FAILURE, payload: error.message });
-      dispatch({ type: ERROR, payload: {message:"Status check failed", stateType: stateTypes.auth}});
-
+/*       dispatch({ type: ERROR, payload: {message:"Status check failed", stateType: stateTypes.auth}});
+ */
     }
   };
   

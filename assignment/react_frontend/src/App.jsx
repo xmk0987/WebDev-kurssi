@@ -20,9 +20,8 @@ const App = () => {
   const auth = useSelector(state => state.auth)
 
   useEffect(() => {
-    console.log("tarkistetaan");
     dispatch(checkStatus());
-  }, [navigate]);
+  }, []);
 
   useEffect(() => {
     dispatch(initializeCartFromLocalStorage());

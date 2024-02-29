@@ -13,16 +13,6 @@ export function Navbar() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    useEffect(() => {
-        dispatch(checkStatus());
-    }, [user.role]);
-
-    useEffect(() => {
-        if (user.role === "guest") {
-            navigate('/login');
-        }
-    }, [user.role]);
-
     const handleLinkClick = (event, path) => {
         event.preventDefault();
         navigate(path);
@@ -39,7 +29,7 @@ export function Navbar() {
             {user.role !== "customer" && user.role !== "admin" && <GuestNavbar handleLinkClick={handleLinkClick} />}
             <div className="inline-flex">
                 <p className="navbar-list-item" >Role:&nbsp;</p>
-                <p className="navbar-list-item" data-testid="profile-container">{user.role || 'guest'}</p>
+                <div className="navbar-list-item" data-testid="profile-container"><p data-testid="role-value">{user ? user.role : 'guest'}</p></div>
             </div>
         </div>
     );
