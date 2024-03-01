@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { Routes, Route, useNavigate } from 'react-router-dom';
+import { useEffect } from "react";
+import { Routes, Route } from 'react-router-dom';
 import { useSelector, useDispatch } from "react-redux";
 
 import { Home } from '../components/Home.jsx';
@@ -21,7 +21,6 @@ import { checkStatus } from "../redux/actions/auth/authActions.js";
 export function ShopRoutes() {
   const user = useSelector(state => state.auth.user);
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   
   useEffect(() => {
     dispatch(checkStatus());

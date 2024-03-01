@@ -10,12 +10,12 @@ export function CardItem({item}) {
   const cart = useSelector(state => state.cart);
   const product = item.product;
 
-  const handleAdd = useCallback((dispatch, product) => {
+  const handleAdd = useCallback(() => {
     dispatch(addToCart(product));
     dispatch({ type: SUCCESS, payload: {message:"Product added", stateType: stateTypes.cart}});
   }, [dispatch]);
   
-  const handleDecrease = useCallback((dispatch, product, cart) => {
+  const handleDecrease = useCallback(() => {
     if (cart.length === 1 && cart[0].quantity === 1) {
       window.localStorage.removeItem('cart');
     }
@@ -31,9 +31,9 @@ export function CardItem({item}) {
         <p className="text-center cart-item-price" data-testid="price-value">{product.price}€</p>
       </div>
       <div className="cart-item-quantity">
-        <button className="quantity-btn" data-testid="add" onClick={() => handleAdd(dispatch, product)}>+</button>
+        <button className="quantity-btn" data-testid="add" onClick={handleAdd}>+</button>
         <p className="text-center quantity" data-testid="quantity-value">{item.quantity}</p>
-        <button className="quantity-btn" data-testid="reduce" onClick={() => handleDecrease(dispatch, product, cart)}>-</button>
+        <button className="quantity-btn" data-testid="reduce" onClick={handleDecrease}>-</button>
       </div>
     </div>
   );
