@@ -10,6 +10,7 @@ import { checkStatus, logout } from "../../redux/actions/auth/authActions";
 
 export function Navbar() {
     const user = useSelector(state => state.auth.user);
+    
     const dispatch = useDispatch();
     const navigate = useNavigate();
 

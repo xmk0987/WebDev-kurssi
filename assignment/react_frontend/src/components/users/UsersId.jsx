@@ -3,6 +3,7 @@ import { deleteUser, getUser } from "../../redux/actions/users/userActions";
 import { useParams, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { checkStatus } from "../../redux/actions/auth/authActions";
+import { Message } from "../Message";
 
 export const UsersId = () => {
   const { userId } = useParams();
@@ -15,12 +16,10 @@ export const UsersId = () => {
   
   useEffect(() => {
     dispatch(checkStatus());
-    console.log(currentUser.role);
-    console.log(user);
     if (currentUser.role === 'admin' && user === "") {
       const fetchData = async () => {
         if (user === "") {
-          const result = await getUser(userId);
+          const result = await getUser(userId, dispatch);
           setUser(result);
         }
       };
@@ -37,7 +36,7 @@ export const UsersId = () => {
   return (
     <>
       <h1 className="page-header" data-testid="name-value">{user.name}</h1>
-
+      <Message />
       <div className="user-container" data-testid="inspect-container">
         <div className="user-info">
           <p className="user-email" data-testid="email-value">{user.email}</p>

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { getUser, modifyUser } from "../../redux/actions/users/userActions";
 import { useParams, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+import { Message } from "../Message";
 
 export const UsersIdModify = () => {
   const { userId } = useParams();
@@ -30,6 +31,7 @@ export const UsersIdModify = () => {
   };
 
   const handleRoleChange = (event) => {
+    event.preventDefault();
     setSelectedRole(event.target.value);
     
   };
@@ -43,6 +45,7 @@ export const UsersIdModify = () => {
   return (
     <>
       <h1 className="page-header">User Modify</h1>
+      <Message />
       <form className="user-modify-form" data-testid="form-container" onSubmit={handleFormSubmit}>
         <div className="form-group mg-bot-1">
           <p data-testid="name-value">{user.name}</p>

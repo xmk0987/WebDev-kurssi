@@ -30,7 +30,9 @@ export const getUsers  = () => async (dispatch) =>  {
     }
 }
 
-export const getUser  = async (id) =>  {
+export const getUser  = async (id, dispatch) =>  {
+    dispatch({ type: LOADING, payload: {message:"Fetching user", stateType: stateTypes.user}});
+
     try {
         const response = await axios.get(apiURL + '/users/' + id, {
             withCredentials: true,
@@ -43,10 +45,11 @@ export const getUser  = async (id) =>  {
         if (response.status !== 200) {
             throw new Error('Failed to get user');
         }
+        dispatch({ type: SUCCESS, payload: {message:"User fetched", stateType: stateTypes.user}});
 
         return response.data;
     } catch (error) {
-        console.error(error);
+        dispatch({ type: ERROR, payload: {message:"Can't get user", stateType: stateTypes.user}});
     }
 }
 

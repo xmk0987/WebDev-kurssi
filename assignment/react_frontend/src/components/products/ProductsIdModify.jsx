@@ -39,7 +39,8 @@ export const ProductsIdModify = () => {
     navigate(-1);
   }
 
-  const goBack = () => {
+  const goBack = (e) => {
+    e.preventDefault();
     navigate(-1);
   }
 
@@ -53,8 +54,8 @@ export const ProductsIdModify = () => {
         <input type="number" data-testid="price-input" value={price} onChange={(e) => setPrice(e.target.value)}  placeholder={product.price}/>
         <input type="text" data-testid="description-input" value={desc} onChange={(e) => setDesc(e.target.value)}  placeholder={product.description}/>
         <button data-testid="submit" type="submit">Submit</button>
+        <button data-testid="cancel" onClick={(e) => goBack(e)}>Cancel</button>
       </form>
-      <button data-testid="cancel" onClick={goBack}>Cancel</button>
     </>
 
   );

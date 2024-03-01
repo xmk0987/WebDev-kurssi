@@ -21,13 +21,16 @@ export const OrdersId = () => {
 
   useEffect(() => {
     const fetchOrder = async () => {
-      const result = await getOrder(orderId);
-      setOrder(result);
+        try {
+            const result = await getOrder(orderId, dispatch);
+            setOrder(result);
+        } catch (error) {
+            console.error(error);
+        }
     }
 
     fetchOrder();
-    
-  }, [auth.user.role]);
+}, [auth.user.role]);
 
   return (
     <>

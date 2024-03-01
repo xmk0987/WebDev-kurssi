@@ -30,7 +30,6 @@ export const getOrders  = () => async (dispatch) =>  {
 
 export const postOrders = (items) => async (dispatch) => {
     dispatch({ type: LOADING, payload: {message:"Orders updating", stateType: stateTypes.order}});
-    console.log("order loading");
     try {
         const response = await axios.post(
             apiURL + '/orders',
@@ -49,7 +48,6 @@ export const postOrders = (items) => async (dispatch) => {
         }
 
         dispatch({ type: SUCCESS, payload: { message: "Order success", stateType: stateTypes.order } });
-        console.log("order success");
 
         dispatch({ type: POST_ORDERS, payload: response.data });
     } catch (error) {
@@ -57,7 +55,8 @@ export const postOrders = (items) => async (dispatch) => {
     }
 };
 
-export const getOrder  = async (id) =>  {
+export const getOrder  = async (id, dispatch) =>  {
+    dispatch({ type: LOADING, payload: {message:"Order updating", stateType: stateTypes.order}});
 
     try {
         const response = await axios.get(apiURL + '/orders/' + id, {
@@ -68,15 +67,15 @@ export const getOrder  = async (id) =>  {
             },
         });
 
-        console.log("get order response: ", response);
 
         if (response.status !== 200) {
             throw new Error('Failed to get order');
         }
+        dispatch({ type: SUCCESS, payload: { message: "Order fetched", stateType: stateTypes.order } });
 
         return response.data;
     } catch (error) {
-        console.error(error);
+        dispatch({ type: ERROR, payload: { message: "Order failed", stateType: stateTypes.order } });
     }
 }
 

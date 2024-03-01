@@ -27,13 +27,13 @@ export function ShopRoutes() {
     dispatch(checkStatus());
   }, []);
 
- /*  useEffect(() => {
+  useEffect(() => {
     if (user.role === 'admin' || user.role === 'customer') {
       navigate('/');
     } else {
       navigate('/login');
     }
-  }, [user.role]); */
+  }, [user.role]);
 
   
 

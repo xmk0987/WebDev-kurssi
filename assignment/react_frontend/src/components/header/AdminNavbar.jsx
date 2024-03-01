@@ -7,7 +7,7 @@ export function AdminNavbar({ handleLinkClick, handleLogout }) {
             <a href="/products" data-testid="products-link" onClick={event => handleLinkClick(event, '/products')}>Products</a>
             <a href="/orders" data-testid="orders-link" onClick={event => handleLinkClick(event, '/orders')}>Orders</a>
             <a href="/users" data-testid="users-link" onClick={event => handleLinkClick(event, '/users')}>Users</a>
-            <a href="/" data-testid="logout" onClick={() => handleLogout()}>Logout</a>
+            <button data-testid="logout" onClick={() => handleLogout()}>Logout</button>
         </>
     );
 }
