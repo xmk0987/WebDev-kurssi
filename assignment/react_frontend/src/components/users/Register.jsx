@@ -24,13 +24,13 @@ export const Register = () => {
     }
   }, [auth.error]);
 
-  const handleNameChange = (e) => setName(e.target.value);
-  const handleEmailChange = (e) => setEmail(e.target.value);
-  const handlePasswordChange = (e) => setPassword(e.target.value);
-  const handlePasswordConfirmChange = (e) => setPasswordConfirm(e.target.value);
+  const handleNameChange = useCallback((e) => setName(e.target.value), []);
+  const handleEmailChange = useCallback((e) => setEmail(e.target.value), []);
+  const handlePasswordChange = useCallback((e) => setPassword(e.target.value), []);
+  const handlePasswordConfirmChange = useCallback((e) => setPasswordConfirm(e.target.value), []);
 
 
-  const handleRegisterSubmit = async (e) => {
+  const handleRegisterSubmit = useCallback(async (e) => {
     e.preventDefault();
     const trimmedName = name.trim();
     const trimmedEmail = email.trim();
@@ -46,7 +46,7 @@ export const Register = () => {
       dispatch({type: SUCCESS,payload: { message: "Register success", stateType: stateTypes.auth },});
       dispatch(registerUser({ name: trimmedName, email: trimmedEmail, password }));
     }
-  };
+  }, [dispatch, name, email, password, passwordConfirm]);
 
   return (
     <>
