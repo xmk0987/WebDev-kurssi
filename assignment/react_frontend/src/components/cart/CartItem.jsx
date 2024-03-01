@@ -6,6 +6,7 @@ import { stateTypes } from "../../tests/constants/components";
 import { SUCCESS } from "../../redux/actions/actionTypes";
 
 export function CardItem({item}) {
+  const dispatch = useDispatch();
   const cart = useSelector(state => state.cart);
   const product = item.product;
 
@@ -23,8 +24,6 @@ export function CardItem({item}) {
     dispatch({ type: SUCCESS, payload: {message:"Product removed", stateType: stateTypes.cart}});
   }, [dispatch, cart]);
   
-  const dispatch = useDispatch();
-
   return (
     <div className="cart-item" data-testid={`list-item-${product.id}-container`}>
       <div className="cart-item-content">
