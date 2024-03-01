@@ -1,13 +1,14 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
-export function AdminNavbar({ handleLinkClick, handleLogout }) {
+export function AdminNavbar({ handleLogout }) {
     return (
         <>
-            <a href="/" data-testid="home-link" onClick={event => handleLinkClick(event, '/')}>Home</a>
-            <a href="/products" data-testid="products-link" onClick={event => handleLinkClick(event, '/products')}>Products</a>
-            <a href="/orders" data-testid="orders-link" onClick={event => handleLinkClick(event, '/orders')}>Orders</a>
-            <a href="/users" data-testid="users-link" onClick={event => handleLinkClick(event, '/users')}>Users</a>
-            <button data-testid="logout" onClick={() => handleLogout()}>Logout</button>
+            <Link to="/" data-testid="home-link">Home</Link>
+            <Link to="/products" data-testid="products-link">Products</Link>
+            <Link to="/orders" data-testid="orders-link">Orders</Link>
+            <Link to="/users" data-testid="users-link">Users</Link>
+            <button data-testid="logout" onClick={handleLogout}>Logout</button>
         </>
     );
 }

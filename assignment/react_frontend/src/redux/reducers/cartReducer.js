@@ -1,18 +1,19 @@
 import { REMOVE_ITEM, ADD_ITEM, SET_CART, RESET_CART } from '../actions/actionTypes';
-    
+
 const cartReducer = (state = [], action) => {
+    let updatedState;
     switch (action.type) {
         case ADD_ITEM:
             const existingProduct = state.findIndex(item => item.product.id === action.payload.id);
             if (existingProduct !== -1) {
-                const updatedState = [...state];
+                updatedState = [...state]; 
                 updatedState[existingProduct].quantity += 1;
                 return updatedState;
             }
 
             return [...state, { product: action.payload, quantity: 1 }];
         case REMOVE_ITEM:
-            const updatedState = [...state];
+            updatedState = [...state];
             const itemToDecreaseIndex = state.findIndex(item => item.product.id === action.payload.id);
             if (itemToDecreaseIndex !== -1) {
                 updatedState[itemToDecreaseIndex].quantity -= 1;
@@ -31,4 +32,3 @@ const cartReducer = (state = [], action) => {
 }
 
 export default cartReducer;
-

@@ -25,15 +25,22 @@ export function Product({product}) {
     dispatch(deleteProduct(product.id));
   }
 
+  const handleInspect = () => {
+    navigate(`/products/${product.id}`)
+  }
+
+  const handleModify = () => {
+    navigate(`/products/${product.id}/modify`)
+  }
 
   return (
     <div data-testid={`list-item-${productid}-container`} className="list-item-container">
       <p data-testid="name-value" className="list-item">{product.name}</p>
       <p data-testid="price-value" className="list-item">{product.price}€</p>
-      <button data-testid={`inspect-${product.id}-link`} className="list-item user-inspect" onClick={() => navigate(`/products/${product.id}`)}>Inspect</button>
+      <button data-testid={`inspect-${product.id}-link`} className="list-item user-inspect" onClick={handleInspect}>Inspect</button>
       {user && user.role === 'admin' ? 
       <>
-        <button data-testid="modify" className="user-inspect" onClick={() => navigate(`/products/${product.id}/modify`)}>Modify</button>
+        <button data-testid="modify" className="user-inspect" onClick={handleModify}>Modify</button>
         <button data-testid="delete" className="user-inspect" onClick={handleDelete}>Delete</button>
 
       </>

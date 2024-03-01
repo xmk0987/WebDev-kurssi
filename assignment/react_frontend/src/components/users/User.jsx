@@ -15,6 +15,14 @@ export function User({user}) {
     dispatch(deleteUser(user.id));
   }
 
+  const handleModify = () => {
+    navigate(`/users/${user.id}/modify`);
+  }
+
+  const handleInspect = () => {
+    navigate(`/users/${user.id}`);
+  }
+
   return (
     <div className="user-container" data-testid={`list-item-${user.id}-container`}>
       <div className="user-info">
@@ -22,11 +30,11 @@ export function User({user}) {
         <p className="user-role" data-testid="role-value">{user.role}</p>
       </div>
       <div className="user-actions">
-        {currentUser.id === user.id ? <button className="user-inspect" data-testid={`inspect-${user.id}-link`} onClick={() => navigate(`/users/${user.id}`)}>Inspect</button>
+        {currentUser.id === user.id ? <button className="user-inspect" data-testid={`inspect-${user.id}-link`} onClick={handleInspect}>Inspect</button>
         : 
         <>
-        <button className="user-inspect" data-testid={`inspect-${user.id}-link`} onClick={() => navigate(`/users/${user.id}`)}>Inspect</button>
-        <button className="user-modify" data-testid="modify" onClick={() => navigate(`/users/${user.id}/modify`)}>Modify</button>
+        <button className="user-inspect" data-testid={`inspect-${user.id}-link`} onClick={handleInspect}>Inspect</button>
+        <button className="user-modify" data-testid="modify" onClick={handleModify}>Modify</button>
         <button className="user-delete" data-testid="delete" onClick={handleDeleteUser}>Delete</button>
         </>
         }

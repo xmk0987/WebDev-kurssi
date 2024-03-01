@@ -41,6 +41,10 @@ export const UsersId = () => {
     navigate(-1);
   }
 
+  const handleModify = () => {
+    navigate(`/users/${user.id}/modify`);
+  }
+
   return (
     <>
       <h1 className="page-header" data-testid="name-value">{user.name}</h1>
@@ -52,7 +56,7 @@ export const UsersId = () => {
         </div>
         {currentUser.id === user.id ? null : 
         <div className="user-actions">
-          <button className="user-modify" data-testid="modify" onClick={() => navigate(`/users/${user.id}/modify`)}>Modify</button>
+          <button className="user-modify" data-testid="modify" onClick={handleModify}>Modify</button>
           <button className="user-delete" data-testid="delete" onClick={handleDeleteUser}>Delete</button>
         </div>}
       </div>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate, useParams } from 'react-router-dom';
 import { deleteProduct, getProduct } from "../../redux/actions/products/productActions";
@@ -40,6 +40,10 @@ export const ProductsId = () => {
     navigate(-1);
   }
 
+  const handleModify = () => {
+    navigate(`/products/${product.id}/modify`)
+  }
+
   return (
     <div data-testid="inspect-container">
       {product ? 
@@ -51,7 +55,7 @@ export const ProductsId = () => {
       {user.role === "admin" ?
       <>
         <button data-testid="delete" className="user-inspect mg-right-05" onClick={handleDelete}>Delete</button>
-        <button data-testid="modify" className="user-inspect" onClick={() => navigate(`/products/${product.id}/modify`)}>Modify</button>
+        <button data-testid="modify" className="user-inspect" onClick={handleModify}>Modify</button>
       </> : <button data-testid="add" className="user-inspect mg-right-05" onClick={handleAdd}>Add</button>
       }</>: null}
     </div>

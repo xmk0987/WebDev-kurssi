@@ -6,6 +6,7 @@ import { GET_USERS, GET_USER, DELETE_USER, MODIFY_USER } from '../actions/action
 
 
 const userReducer = (state = [], action) => {
+    let newUser;
     switch (action.type) {
         case GET_USERS:
         case GET_USER:
@@ -13,7 +14,7 @@ const userReducer = (state = [], action) => {
         case DELETE_USER:
             return state.filter(user => user.id !== action.payload);
         case MODIFY_USER:
-            const newUser = action.payload;
+            newUser = action.payload;
             return state.map(user => user.id === newUser.id ? newUser : user);
         default:
             return state;

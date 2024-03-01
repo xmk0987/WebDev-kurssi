@@ -3,7 +3,6 @@ import { User } from "./User";
 import { useSelector, useDispatch } from "react-redux";
 import { getUsers } from "../../redux/actions/users/userActions";
 
-import { stateTypes } from "../../tests/constants/components";
 import { Message } from "../Message";
 import { checkStatus } from "../../redux/actions/auth/authActions";
 

@@ -1,13 +1,14 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
-export function GuestNavbar({ handleLinkClick }) {
+export function GuestNavbar() {
     return (
         <>
-            <a href="/" data-testid="home-link" onClick={event => handleLinkClick(event, '/')}>Home</a>
-            <a href="/products" data-testid="products-link" onClick={event => handleLinkClick(event, '/products')}>Products</a>
-            <a href="/cart" data-testid="cart-link" onClick={event => handleLinkClick(event, '/cart')}>Cart</a>
-            <a href="/login" data-testid="login-link" onClick={event => handleLinkClick(event, '/login')}>Login</a>
-            <a href="/register" data-testid="register-link" onClick={event => handleLinkClick(event, '/register')}>Register</a>
+            <Link to="/" data-testid="home-link">Home</Link>
+            <Link to="/products" data-testid="products-link">Products</Link>
+            <Link to="/cart" data-testid="cart-link">Cart</Link>
+            <Link to="/login" data-testid="login-link">Login</Link>
+            <Link to="/register" data-testid="register-link">Register</Link>
         </>
     );
 }

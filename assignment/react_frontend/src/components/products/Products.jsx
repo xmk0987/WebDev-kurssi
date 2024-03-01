@@ -17,6 +17,10 @@ export const Products = () => {
     }
   }, [user.role]);
 
+  const handleToggle = () => {
+    toggleAdd(true);
+  }
+
   return (
     <>
       <h1 className="page-header">Products</h1>
@@ -31,7 +35,7 @@ export const Products = () => {
       {user && user.role === "admin" && !add ? (
         <button
           className="mg-bot-2 mg-top-1 user-inspect"
-          onClick={() => toggleAdd(true)}
+          onClick={handleToggle}
           data-testid="add"
         >
           ADD
