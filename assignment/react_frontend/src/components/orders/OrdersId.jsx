@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { getOrder } from "../../redux/actions/orders/orderActions";
 import { checkStatus } from "../../redux/actions/auth/authActions";
 import { Message } from "../Message";
+import { stateTypes } from "../../tests/constants/components";
+import { SUCCESS } from "../../redux/actions/actionTypes";
 
 export const OrdersId = () => {
   const { orderId } = useParams();
@@ -21,16 +23,24 @@ export const OrdersId = () => {
 
   useEffect(() => {
     const fetchOrder = async () => {
-        try {
+        if(!order) {
+          try {
             const result = await getOrder(orderId, dispatch);
             setOrder(result);
-        } catch (error) {
-            console.error(error);
+          } catch (error) {
+              console.error(error);
+          }
         }
     }
 
     fetchOrder();
 }, [auth.user.role]);
+
+useEffect(() => {
+  dispatch({ type: SUCCESS, payload: {message:"Order fetched", stateType: stateTypes.order}});
+
+},[]);
+
 
   return (
     <>

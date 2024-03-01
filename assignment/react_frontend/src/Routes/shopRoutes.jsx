@@ -26,23 +26,10 @@ export function ShopRoutes() {
   useEffect(() => {
     dispatch(checkStatus());
   }, []);
-
-  useEffect(() => {
-    if (user.role === 'admin' || user.role === 'customer') {
-      navigate('/');
-    } else {
-      navigate('/login');
-    }
-  }, [user.role]);
-
   
-
   return (
     <Routes>
       <Route path="/" element={<Home />} />
-      <Route path="/register" element={<Register />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/cart" element={<Cart />} />
       <Route path="/products" element={<Products />} />
       <Route path="/products/:productId" element={<ProductsId />} />
 
@@ -59,6 +46,14 @@ export function ShopRoutes() {
           <Route path="/users/:userId/modify" element={<UsersIdModify />} />
         </>
       )}
+
+      {user && user.role === 'guest' && (
+        <>
+          <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/cart" element={<Cart />} />
+      </>
+      )} 
 
       {user && user.role === 'customer' && (
         <>

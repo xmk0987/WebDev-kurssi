@@ -3,6 +3,8 @@ import { getUser, modifyUser } from "../../redux/actions/users/userActions";
 import { useParams, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { Message } from "../Message";
+import { stateTypes } from "../../tests/constants/components";
+import { SUCCESS } from "../../redux/actions/actionTypes";
 
 export const UsersIdModify = () => {
   const { userId } = useParams();
@@ -16,10 +18,12 @@ export const UsersIdModify = () => {
   useEffect(() => {
     if (currentUser.role === 'admin') {
       const fetchData = async () => {
-        if (user === "") {
+        if (!user) {
           const result = await getUser(userId);
           setUser(result);
         }
+        dispatch({ type: SUCCESS, payload: {message:"User fetched", stateType: stateTypes.user}});
+
       };
 
       fetchData();

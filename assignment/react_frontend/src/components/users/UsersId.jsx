@@ -4,6 +4,8 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { checkStatus } from "../../redux/actions/auth/authActions";
 import { Message } from "../Message";
+import { SUCCESS } from "../../redux/actions/actionTypes";
+import { stateTypes } from "../../tests/constants/components";
 
 export const UsersId = () => {
   const { userId } = useParams();
@@ -22,11 +24,17 @@ export const UsersId = () => {
           const result = await getUser(userId, dispatch);
           setUser(result);
         }
+
       };
   
       fetchData();
     } 
   }, [currentUser.role]);
+
+  useEffect(() => {
+    dispatch({ type: SUCCESS, payload: {message:"User fetched", stateType: stateTypes.user}});
+
+  },[]);
 
   const handleDeleteUser = () => {
     dispatch(deleteUser(user.id));
