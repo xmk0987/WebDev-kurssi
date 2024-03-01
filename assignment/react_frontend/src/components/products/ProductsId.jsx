@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate, useParams } from 'react-router-dom';
 import { deleteProduct, getProduct } from "../../redux/actions/products/productActions";
@@ -30,19 +30,19 @@ export const ProductsId = () => {
     fetchData();
   }, []);
 
-  const handleAdd = () => {
+  const handleAdd = useCallback(() => {
     dispatch(addToCart(product));
     dispatch({ type: SUCCESS, payload: {message:"Product added", stateType: stateTypes.cart}});
-  }
+  }, [dispatch, product]);
 
-  const handleDelete = () => {
+  const handleDelete = useCallback(() => {
     dispatch(deleteProduct(productId));
     navigate(-1);
-  }
+  }, [dispatch, navigate, productId]);
 
-  const handleModify = () => {
+  const handleModify = useCallback(() => {
     navigate(`/products/${product.id}/modify`)
-  }
+  }, [navigate, product]);
 
   return (
     <div data-testid="inspect-container">

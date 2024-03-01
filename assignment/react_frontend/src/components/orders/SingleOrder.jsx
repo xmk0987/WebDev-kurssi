@@ -1,14 +1,12 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
-
-
 
 export function SingleOrder({order}) {
   const navigate = useNavigate();
 
-  const handleOrderInspect = () => {
+  const handleOrderInspect = useCallback(() => {
     navigate(`/orders/${order.id}`)
-  }
+  }, [navigate, order.id]);
 
   return (
     <div className="list-item-container" data-testid={`list-item-${order.id}-container`}>

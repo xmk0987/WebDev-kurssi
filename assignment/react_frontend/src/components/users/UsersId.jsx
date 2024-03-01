@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { deleteUser, getUser } from "../../redux/actions/users/userActions";
 import { useParams, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
@@ -9,56 +9,65 @@ import { stateTypes } from "../../tests/constants/components";
 
 export const UsersId = () => {
   const { userId } = useParams();
-  const users = useSelector(state => state.users);
-  const currentUser = useSelector(state => state.auth.user);
-  const [user, setUser] = useState(users.find(user => user.id === userId) || "");
+  const users = useSelector((state) => state.users);
+  const currentUser = useSelector((state) => state.auth.user);
+  const [user, setUser] = useState(users.find((user) => user.id === userId) || "");
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  
+
   useEffect(() => {
     dispatch(checkStatus());
-    if (currentUser.role === 'admin' && user === "") {
+    if (currentUser.role === "admin" && user === "") {
       const fetchData = async () => {
         if (user === "") {
           const result = await getUser(userId, dispatch);
           setUser(result);
         }
-
       };
-  
+
       fetchData();
-    } 
+    }
   }, [currentUser.role]);
 
   useEffect(() => {
-    dispatch({ type: SUCCESS, payload: {message:"User fetched", stateType: stateTypes.user}});
+    dispatch({ type: SUCCESS, payload: { message: "User fetched", stateType: stateTypes.user } });
+  }, []);
 
-  },[]);
-
-  const handleDeleteUser = () => {
+  const handleDeleteUser = useCallback(() => {
     dispatch(deleteUser(user.id));
     navigate(-1);
-  }
+  }, [dispatch, navigate, user.id]);
 
-  const handleModify = () => {
+  const handleModify = useCallback(() => {
     navigate(`/users/${user.id}/modify`);
-  }
+  }, [navigate, user.id]);
 
   return (
     <>
-      <h1 className="page-header" data-testid="name-value">{user.name}</h1>
+      <h1 className="page-header" data-testid="name-value">
+        {user.name}
+      </h1>
       <Message />
       <div className="user-container" data-testid="inspect-container">
         <div className="user-info">
-          <p className="user-email" data-testid="email-value">{user.email}</p>
-          <p className="user-role" data-testid="role-value">{user.role}</p>
+          <p className="user-email" data-testid="email-value">
+            {user.email}
+          </p>
+          <p className="user-role" data-testid="role-value">
+            {user.role}
+          </p>
         </div>
-        {currentUser.id === user.id ? null : 
-        <div className="user-actions">
-          <button className="user-modify" data-testid="modify" onClick={handleModify}>Modify</button>
-          <button className="user-delete" data-testid="delete" onClick={handleDeleteUser}>Delete</button>
-        </div>}
+        {currentUser.id === user.id ? null : (
+          <div className="user-actions">
+            <button className="user-modify" data-testid="modify" onClick={handleModify}>
+              Modify
+            </button>
+            <button className="user-delete" data-testid="delete" onClick={handleDeleteUser}>
+              Delete
+            </button>
+          </div>
+        )}
       </div>
     </>
   );

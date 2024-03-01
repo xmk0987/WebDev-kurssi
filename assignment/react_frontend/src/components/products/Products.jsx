@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getProducts } from "../../redux/actions/products/productActions";
 import { Message } from "../Message";
@@ -17,9 +17,9 @@ export const Products = () => {
     }
   }, [user.role]);
 
-  const handleToggle = () => {
+  const handleToggle = useCallback(() => {
     toggleAdd(true);
-  }
+  }, [toggleAdd]);
 
   return (
     <>

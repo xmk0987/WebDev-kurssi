@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { CustomerNavbar } from "./CustomerNavbar";
 import { AdminNavbar } from "./AdminNavbar";
 import { GuestNavbar } from "./GuestNavbar";
@@ -12,9 +12,9 @@ export function Navbar() {
     const user = useSelector(state => state.auth.user);
     const dispatch = useDispatch();
 
-    const handleLogout = () => {
+    const handleLogout = useCallback(() => {
         dispatch(logout());
-    };
+    }, [dispatch]);
 
     return (
         <div className="navbar" data-testid="navbar-container">

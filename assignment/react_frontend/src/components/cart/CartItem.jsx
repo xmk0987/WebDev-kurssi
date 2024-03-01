@@ -5,24 +5,24 @@ import { decreaseFromCart, addToCart } from "../../redux/actions/cart/actionCrea
 import { stateTypes } from "../../tests/constants/components";
 import { SUCCESS } from "../../redux/actions/actionTypes";
 
-const handleAdd = (dispatch, product) => {
-  dispatch(addToCart(product));
-  dispatch({ type: SUCCESS, payload: {message:"Product added", stateType: stateTypes.cart}});
-};
-
-const handleDecrease = (dispatch, product, cart) => {
-  if (cart.length === 1 && cart[0].quantity === 1) {
-    window.localStorage.removeItem('cart');
-  }
-  
-  dispatch(decreaseFromCart(product));
-  dispatch({ type: SUCCESS, payload: {message:"Product removed", stateType: stateTypes.cart}});
-};
-
 export function CardItem({item}) {
   const cart = useSelector(state => state.cart);
   const product = item.product;
 
+  const handleAdd = useCallback((dispatch, product) => {
+    dispatch(addToCart(product));
+    dispatch({ type: SUCCESS, payload: {message:"Product added", stateType: stateTypes.cart}});
+  }, [dispatch]);
+  
+  const handleDecrease = useCallback((dispatch, product, cart) => {
+    if (cart.length === 1 && cart[0].quantity === 1) {
+      window.localStorage.removeItem('cart');
+    }
+    
+    dispatch(decreaseFromCart(product));
+    dispatch({ type: SUCCESS, payload: {message:"Product removed", stateType: stateTypes.cart}});
+  }, [dispatch, cart]);
+  
   const dispatch = useDispatch();
 
   return (

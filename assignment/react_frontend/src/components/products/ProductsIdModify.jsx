@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate, useParams } from 'react-router-dom';
 import { getProduct, updateProduct } from "../../redux/actions/products/productActions";
 import { Message } from "../Message";
-
 
 
 export const ProductsIdModify = () => {
@@ -21,33 +20,31 @@ export const ProductsIdModify = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const fetchData = useCallback(async () => {
+    if (product === "") {
+      const result = await getProduct(productId);
+      setProduct(result);
+    }
+  }, [product, productId]);
+
   useEffect(() => {
-    const fetchData = async () => {
-      if (product === "") {
-        const result = await getProduct(productId);
-        setProduct(result);
-      }
-    };
-
     fetchData();
-  }, []);
+  }, [fetchData]);
 
-
-  const handleModifyProduct = (e) => {
+  const handleModifyProduct = useCallback((e) => {
     e.preventDefault();
-    dispatch(updateProduct({name: name, price: price, description: desc}, productId));
+    dispatch(updateProduct({ name: name, price: price, description: desc }, productId));
     navigate(-1);
-  }
+  }, [dispatch, name, price, desc, productId, navigate]);
 
-  const goBack = (e) => {
+  const goBack = useCallback((e) => {
     e.preventDefault();
     navigate(-1);
-  }
+  }, [navigate]);
 
-  const handleNameChange = (e) => setName(e.target.value);
-  const handlePriceChange = (e) => setPrice(e.target.value);
-  const handleDescChange = (e) => setDesc(e.target.value);
-
+  const handleNameChange = useCallback((e) => setName(e.target.value), []);
+  const handlePriceChange = useCallback((e) => setPrice(e.target.value), []);
+  const handleDescChange = useCallback((e) => setDesc(e.target.value), []);
 
   return (
     <>
@@ -55,13 +52,12 @@ export const ProductsIdModify = () => {
       <Message />
       <form data-testid="form-container" className="add-product-form" onSubmit={handleModifyProduct}>
         <p data-testid="id-value">{product.id}</p>
-        <input type="text" data-testid="name-input" value={name} onChange={handleNameChange}  placeholder={product.name}/>
-        <input type="number" data-testid="price-input" value={price} onChange={handlePriceChange}  placeholder={product.price}/>
-        <input type="text" data-testid="description-input" value={desc} onChange={handleDescChange}  placeholder={product.description}/>
+        <input type="text" data-testid="name-input" value={name} onChange={handleNameChange} placeholder={product.name} />
+        <input type="number" data-testid="price-input" value={price} onChange={handlePriceChange} placeholder={product.price} />
+        <input type="text" data-testid="description-input" value={desc} onChange={handleDescChange} placeholder={product.description} />
         <button data-testid="submit" type="submit">Submit</button>
         <button data-testid="cancel" onClick={goBack}>Cancel</button>
       </form>
     </>
-
   );
 };

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { getUser, modifyUser } from "../../redux/actions/users/userActions";
 import { useParams, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
@@ -8,43 +8,47 @@ import { SUCCESS } from "../../redux/actions/actionTypes";
 
 export const UsersIdModify = () => {
   const { userId } = useParams();
-  const users = useSelector(state => state.users);
-  const currentUser = useSelector(state => state.auth.user);
-  const [user, setUser] = useState(users.find(user => user.id === userId) || "");
+  const users = useSelector((state) => state.users);
+  const currentUser = useSelector((state) => state.auth.user);
+  const [user, setUser] = useState(users.find((user) => user.id === userId) || "");
   const [selectedRole, setSelectedRole] = useState(user.role);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (currentUser.role === 'admin') {
+    if (currentUser.role === "admin") {
       const fetchData = async () => {
         if (!user) {
           const result = await getUser(userId);
           setUser(result);
         }
-        dispatch({ type: SUCCESS, payload: {message:"User fetched", stateType: stateTypes.user}});
-
+        dispatch({ type: SUCCESS, payload: { message: "User fetched", stateType: stateTypes.user } });
       };
 
       fetchData();
     }
   }, [currentUser.role]);
 
-  const handleCancel = () => {
-    navigate(-1); 
-  };
+  const handleCancel = useCallback(() => {
+    navigate(-1);
+  }, [navigate]);
 
-  const handleRoleChange = (event) => {
-    event.preventDefault();
-    setSelectedRole(event.target.value);
-    
-  };
+  const handleRoleChange = useCallback(
+    (event) => {
+      event.preventDefault();
+      setSelectedRole(event.target.value);
+    },
+    [setSelectedRole]
+  );
 
-  const handleFormSubmit = (e) => {
-    e.preventDefault();
-    dispatch(modifyUser(user.id, selectedRole));
-    navigate(-1); 
-  }
+  const handleFormSubmit = useCallback(
+    (e) => {
+      e.preventDefault();
+      dispatch(modifyUser(user.id, selectedRole));
+      navigate(-1);
+    },
+    [dispatch, navigate, user.id, selectedRole]
+  );
 
   return (
     <>
@@ -62,8 +66,12 @@ export const UsersIdModify = () => {
           </select>
         </div>
         <div className="form-group mg-top-1">
-          <button type="submit"  data-testid="submit" disabled={user.role === selectedRole}>Submit</button>
-          <button type="button" className="user-inspect" data-testid="cancel" onClick={handleCancel}>Cancel</button>
+          <button type="submit" data-testid="submit" disabled={user.role === selectedRole}>
+            Submit
+          </button>
+          <button type="button" className="user-inspect" data-testid="cancel" onClick={handleCancel}>
+            Cancel
+          </button>
         </div>
       </form>
     </>

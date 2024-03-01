@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import {useSelector, useDispatch} from 'react-redux';
+import React, { useState, useCallback } from "react";
+import { useDispatch } from 'react-redux';
 import { Message } from "../Message";
 import { loginUser } from "../../redux/actions/auth/authActions";
 
@@ -8,20 +8,18 @@ export const Login = () => {
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
 
-  const auth = useSelector(state => state.auth);
-
-  const handleLoginSubmit = (e) => {
+  const handleLoginSubmit = useCallback((e) => {
     e.preventDefault();
-    dispatch(loginUser({email:email, password:password}));
-  };
+    dispatch(loginUser({ email: email, password: password }));
+  }, [dispatch, email, password]);
 
-  const handleEmailChange = (e) => {
+  const handleEmailChange = useCallback((e) => {
     setEmail(e.target.value);
-  }
+  }, []);
 
-  const handlePasswordChange = (e) => {
+  const handlePasswordChange = useCallback((e) => {
     setPassword(e.target.value);
-  }
+  }, []);
 
   return (
     <>
